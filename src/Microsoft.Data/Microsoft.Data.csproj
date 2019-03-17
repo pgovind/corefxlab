@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.2;net472</TargetFrameworks>
+    <DefaultItemExcludes>$(DefaultItemExcludes);Dependencies\**\*</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Apache.Arrow" Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
+      <HintPath>Dependencies\netcoreapp2.1\Apache.Arrow.dll</HintPath>
+    </Reference>
+    
+    <Reference Include="Apache.Arrow" Condition="'$(TargetFramework)' == 'net472'">
+      <HintPath>Dependencies\netstandard1.3\Apache.Arrow.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="12.1.2" />
+    <PackageReference Include="System.Buffers" Version="4.5.0" />
+    <PackageReference Include="System.Memory" Version="4.5.1" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.1" />
+    <PackageReference Include="System.Text.Encoding" Version="4.3.0" />
+  </ItemGroup>
+</Project>
