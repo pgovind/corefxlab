@@ -40,6 +40,8 @@ namespace Microsoft.DataFrame.Tests
 
             var column = (IList<int>)dataFrame["Int2"];
             Assert.Equal(1000, (int)column[2]);
+
+            Assert.Throws<System.ArgumentException>(() => dataFrame["Int5"]);
         }
 
         [Fact]
