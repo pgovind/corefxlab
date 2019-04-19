@@ -12,11 +12,11 @@ namespace Microsoft.Data
     /// PrimitiveDataFrameColumnContainer is just a store for the column data. APIs that want to change the data must be defined in PrimitiveDataFrameColumn
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal partial class PrimitiveDataFrameColumnContainer<T>
+    internal partial class PrimitiveColumnContainer<T>
         where T : struct
     {
         public IList<DataFrameBuffer<T>> Buffers = new List<DataFrameBuffer<T>>();
-        public PrimitiveDataFrameColumnContainer(T[] values)
+        public PrimitiveColumnContainer(T[] values)
         {
             values = values ?? throw new ArgumentNullException(nameof(values));
             long length = values.LongLength;
@@ -42,7 +42,7 @@ namespace Microsoft.Data
             }
         }
 
-        public PrimitiveDataFrameColumnContainer(IEnumerable<T> values)
+        public PrimitiveColumnContainer(IEnumerable<T> values)
         {
             values = values ?? throw new ArgumentNullException(nameof(values));
             if (Buffers.Count == 0)
@@ -62,7 +62,17 @@ namespace Microsoft.Data
             }
         }
 
-        public PrimitiveDataFrameColumnContainer() { }
+        public PrimitiveColumnContainer() { }
+
+        public void Append(T value)
+        {
+            var lastBuffer = Buffers[Buffers.Count - 1];
+            if (lastBuffer.Length == lastBuffer.MaxCapacity)
+            {
+                lastBuffer = new DataFrameBuffer<T>();
+            }
+            lastBuffer.Append(value);
+        }
 
         public long Length;
         //TODO:
@@ -129,9 +139,9 @@ namespace Microsoft.Data
             }
             return sb.ToString();
         }
-        public PrimitiveDataFrameColumnContainer<T> Clone()
+        public PrimitiveColumnContainer<T> Clone()
         {
-            var ret = new PrimitiveDataFrameColumnContainer<T>();
+            var ret = new PrimitiveColumnContainer<T>();
             foreach (DataFrameBuffer<T> buffer in Buffers)
             {
                 DataFrameBuffer<T> newBuffer = new DataFrameBuffer<T>();
@@ -146,9 +156,9 @@ namespace Microsoft.Data
             return ret;
         }
 
-        internal PrimitiveDataFrameColumnContainer<bool> CreateBoolContainerForCompareOps()
+        internal PrimitiveColumnContainer<bool> CloneAsBoolContainer()
         {
-            var ret = new PrimitiveDataFrameColumnContainer<bool>();
+            var ret = new PrimitiveColumnContainer<bool>();
             foreach (var buffer in Buffers)
             {
                 DataFrameBuffer<bool> newBuffer = new DataFrameBuffer<bool>();
@@ -157,6 +167,42 @@ namespace Microsoft.Data
                 newBuffer.Span.Fill(false);
                 newBuffer.Length = buffer.Length;
                 ret.Length += buffer.Length;
+            }
+            return ret;
+        }
+
+        internal PrimitiveColumnContainer<double> CloneAsDoubleContainer()
+        {
+            var ret = new PrimitiveColumnContainer<double>();
+            foreach(var buffer in Buffers)
+            {
+                ret.Length += buffer.Length;
+                DataFrameBuffer<double> newBuffer = new DataFrameBuffer<double>();
+                ret.Buffers.Add(newBuffer);
+                newBuffer.EnsureCapacity(buffer.Length);
+                var span = buffer.Span;
+                for (int ii = 0; ii < buffer.Length; ii++)
+                {
+                    newBuffer.Append(DoubleConverter<T>.Instance.GetDouble(span[ii]));
+                }
+            }
+            return ret;
+        }
+
+        internal PrimitiveColumnContainer<decimal> CloneAsDecimalContainer()
+        {
+            var ret = new PrimitiveColumnContainer<decimal>();
+            foreach(var buffer in Buffers)
+            {
+                ret.Length += buffer.Length;
+                DataFrameBuffer<decimal> newBuffer = new DataFrameBuffer<decimal>();
+                ret.Buffers.Add(newBuffer);
+                newBuffer.EnsureCapacity(buffer.Length);
+                var span = buffer.Span;
+                for (int ii = 0; ii < buffer.Length; ii++)
+                {
+                    newBuffer.Append(DecimalConverter<T>.Instance.GetDecimal(span[ii]));
+                }
             }
             return ret;
         }

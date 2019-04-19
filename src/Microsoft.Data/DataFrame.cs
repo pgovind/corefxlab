@@ -18,6 +18,11 @@ namespace Microsoft.Data
             _table = new DataFrameTable();
         }
 
+        public DataFrame(IList<BaseColumn> columns)
+        {
+            _table = new DataFrameTable(columns);
+        }
+
         public long RowCount => _table.RowCount;
 
         public int ColumnCount => _table.ColumnCount;
@@ -35,11 +40,11 @@ namespace Microsoft.Data
             }
         }
 
-        public BaseDataFrameColumn Column(int index) => _table.Column(index);
+        public BaseColumn Column(int index) => _table.Column(index);
         
-        public void InsertColumn(int columnIndex, BaseDataFrameColumn column) => _table.InsertColumn(columnIndex, column);
+        public void InsertColumn(int columnIndex, BaseColumn column) => _table.InsertColumn(columnIndex, column);
 
-        public void SetColumn(int columnIndex, BaseDataFrameColumn column) => _table.SetColumn(columnIndex, column);
+        public void SetColumn(int columnIndex, BaseColumn column) => _table.SetColumn(columnIndex, column);
 
         public void RemoveColumn(int columnIndex) => _table.RemoveColumn(columnIndex);
 
@@ -61,13 +66,27 @@ namespace Microsoft.Data
             //TODO?: set?
         }
 
-        public object this[string columnName]
+        public BaseColumn this[string columnName]
         {
             get
             {
                 int columnIndex = _table.GetColumnIndex(columnName);
                 if (columnIndex == -1) throw new ArgumentException($"{columnName} does not exist");
-                return _table.Column(columnIndex); //[0, (int)Math.Min(_table.NumRows, Int32.MaxValue)];
+                return _table.Column(columnIndex);
+            }
+            set
+            {
+                int columnIndex = _table.GetColumnIndex(columnName);
+                BaseColumn newColumn = value;
+                newColumn.Name = columnName;
+                if (columnIndex == -1)
+                {
+                    _table.InsertColumn(ColumnCount, newColumn);
+                }
+                else
+                {
+                    _table.SetColumn(columnIndex, newColumn);
+                }
             }
         }
 
@@ -92,5 +111,10 @@ namespace Microsoft.Data
         }
         // TODO: Add strongly typed versions of these APIs
         #endregion
+
+        public override bool Equals(object obj)
+        {
+            return ReferenceEquals(this, obj);
+        }
     }
 }

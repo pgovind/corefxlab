@@ -9,14 +9,15 @@ using System.Text;
 namespace Microsoft.Data
 {
     /// <summary>
-    /// The base column type. All APIs should have atleast a stub here first
+    /// The base column type. All APIs should have a stub here first
     /// </summary>
-    public abstract class BaseDataFrameColumn
+    public abstract partial class BaseColumn
     {
-        public BaseDataFrameColumn(string name, long length = 0)
+        public BaseColumn(string name, long length, Type type)
         {
             Length = length;
             Name = name;
+            DataType = type;
         }
 
         private long _length;
@@ -34,8 +35,23 @@ namespace Microsoft.Data
 
         public string Name;
 
-        public virtual object this[long rowIndex] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
+        public readonly Type DataType;
 
-        public virtual object this[long startIndex, int length] { get { throw new NotImplementedException(); } }
+        public virtual object this[long rowIndex]
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public virtual object this[long startIndex, int length]
+        {
+            get => throw new NotImplementedException();
+        }
+
+
+        public override bool Equals(object obj)
+        {
+            return ReferenceEquals(this, obj);
+        }
     }
 }
