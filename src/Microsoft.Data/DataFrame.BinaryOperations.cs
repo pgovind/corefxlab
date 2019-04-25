@@ -15,7 +15,7 @@ namespace Microsoft.Data
         #region Binary Operations
 
         public DataFrame Add<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -31,7 +31,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Add<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -43,7 +43,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Subtract<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -59,7 +59,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Subtract<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -71,7 +71,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Multiply<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -87,7 +87,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Multiply<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -99,7 +99,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Divide<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -115,7 +115,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Divide<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -127,7 +127,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Modulo<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -143,7 +143,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Modulo<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -155,7 +155,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame And<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -171,7 +171,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame And<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -183,7 +183,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Or<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -199,7 +199,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Or<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -211,7 +211,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Xor<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -227,7 +227,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Xor<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -261,7 +261,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Equals<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -277,7 +277,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame Equals<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -289,7 +289,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame NotEquals<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -305,7 +305,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame NotEquals<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -317,7 +317,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame GreaterThanOrEqual<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -333,7 +333,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame GreaterThanOrEqual<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -345,7 +345,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame LessThanOrEqual<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -361,7 +361,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame LessThanOrEqual<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -373,7 +373,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame GreaterThan<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -389,7 +389,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame GreaterThan<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)
@@ -401,7 +401,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame LessThan<T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
         {
             if (values.Count != ColumnCount)
             {
@@ -417,7 +417,7 @@ namespace Microsoft.Data
             return newDataFrame;
         }
         public DataFrame LessThan<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             var newDataFrame = new DataFrame();
             for (int i = 0; i < ColumnCount; i++)

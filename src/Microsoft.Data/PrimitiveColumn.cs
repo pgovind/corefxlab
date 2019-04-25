@@ -8,13 +8,13 @@ using System.Collections.Generic;
 namespace Microsoft.Data
 {
     /// <summary>
-    /// A column to hold primitive values such as int, float etc. Other value types are not really supported
+    /// A column to hold primitive types such as int, float etc.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public partial class PrimitiveColumn<T> : BaseColumn
-        where T : struct
+        where T : unmanaged
     {
-        internal PrimitiveColumnContainer<T> _columnContainer;
+        private PrimitiveColumnContainer<T> _columnContainer;
 
         internal PrimitiveColumn(string name, PrimitiveColumnContainer<T> column) : base(name, column.Length, typeof(T))
         {
@@ -27,9 +27,9 @@ namespace Microsoft.Data
             Length = _columnContainer.Length;
         }
 
-        public PrimitiveColumn(string name, bool isNullable = true) : base(name, 0, typeof(T))
+        public PrimitiveColumn(string name, long length = 0, bool isNullable = true) : base(name, length, typeof(T))
         {
-            _columnContainer = new PrimitiveColumnContainer<T>();
+            _columnContainer = new PrimitiveColumnContainer<T>(length);
         }
 
         public override object this[long startIndex, int length] {
@@ -64,17 +64,54 @@ namespace Microsoft.Data
             }
         }
 
-        public void Append(T value) => _columnContainer.Append(value);
+        public void Append(T value)
+        {
+            _columnContainer.Append(value);
+            Length++;
+        }
 
         public override string ToString()
         {
             return $"{Name}: {_columnContainer.ToString()}";
         }
 
-        public PrimitiveColumn<T> Clone()
+        public override BaseColumn Clone(BaseColumn mapIndices = null, bool invertMapIndices = false)
         {
-            PrimitiveColumnContainer<T> newColumnContainer = _columnContainer.Clone();
-            return new PrimitiveColumn<T>(Name, newColumnContainer);
+            if (!(mapIndices is null))
+            {
+                if (mapIndices.DataType != typeof(long)) throw new ArgumentException($"Expected sortIndices to be a PrimitiveColumn<long>");
+                if (mapIndices.Length != Length) throw new ArgumentException($"{nameof(mapIndices)} must be of length {Length}");
+                return _Clone(mapIndices as PrimitiveColumn<long>, invertMapIndices);
+            }
+            return _Clone();
+        }
+
+        public PrimitiveColumn<T> _Clone(PrimitiveColumn<long> mapIndices = null, bool invertMapIndices = false)
+        {
+            if (mapIndices is null)
+            {
+                PrimitiveColumnContainer<T> newColumnContainer = _columnContainer.Clone();
+                return new PrimitiveColumn<T>(Name, newColumnContainer);
+            }
+            else
+            {
+                PrimitiveColumn<T> ret = new PrimitiveColumn<T>(Name);
+                if (invertMapIndices == false)
+                {
+                    for (long i = 0; i < mapIndices.Length; i++)
+                    {
+                        ret.Append(_columnContainer[mapIndices._columnContainer[i]]);
+                    }
+                }
+                else
+                {
+                    for (long i = Length - 1; i >= 0; i--)
+                    {
+                        ret.Append(_columnContainer[mapIndices._columnContainer[i]]);
+                    }
+                }
+                return ret;
+            }
         }
 
         internal PrimitiveColumn<bool> CloneAsBoolColumn()

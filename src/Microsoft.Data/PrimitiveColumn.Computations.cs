@@ -13,7 +13,7 @@ using System.Text;
 namespace Microsoft.Data
 {
     public partial class PrimitiveColumn<T> : BaseColumn
-        where T : struct
+        where T : unmanaged
     {
         #region Computations
         public override void Abs()

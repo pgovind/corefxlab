@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Microsoft.Data
 {
@@ -112,9 +113,50 @@ namespace Microsoft.Data
         // TODO: Add strongly typed versions of these APIs
         #endregion
 
-        public override bool Equals(object obj)
+        private DataFrame Clone()
         {
-            return ReferenceEquals(this, obj);
+            List<BaseColumn> newColumns = new List<BaseColumn>(ColumnCount);
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                newColumns.Add(Column(i).Clone());
+            }
+            return new DataFrame(newColumns);
+        }
+
+        public DataFrame Sort(string columnName, bool ascending = true)
+        {
+            BaseColumn column = this[columnName];
+            BaseColumn sortIndices = column.GetAscendingSortIndices();
+            List<BaseColumn> newColumns = new List<BaseColumn>(ColumnCount);
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                var newColumn = Column(i).Clone(sortIndices, !ascending);
+                newColumns.Add(newColumn);
+            }
+            return new DataFrame(newColumns);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                // Left align by 10
+                // TODO: Bug here if Name.Length > 10. The alignment will go out of whack
+                sb.Append(string.Format("{0,-10}", Column(i).Name));
+            }
+            sb.AppendLine();
+            long numberOfRows = Math.Min(RowCount, 25);
+            for (int i = 0; i < numberOfRows; i++)
+            {
+                IList<object> row = this[i];
+                foreach (object obj in row)
+                {
+                    sb.Append(string.Format("{0,-10}", obj.ToString()));
+                }
+                sb.AppendLine();
+            }
+            return sb.ToString();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Microsoft.Data
 <# foreach (MethodConfiguration method in methodConfiguration) { #>
 <# if (method.MethodType == MethodType.BinaryScalar || method.MethodType == MethodType.ComparisonScalar) { #>
         public virtual BaseColumn <#=method.MethodName#><T>(T value)
-            where T : struct
+            where T : unmanaged
 <# } #>
 <# if (method.MethodType == MethodType.Binary || method.MethodType == MethodType.Comparison) {#>
         public virtual BaseColumn <#=method.MethodName#>(BaseColumn column)

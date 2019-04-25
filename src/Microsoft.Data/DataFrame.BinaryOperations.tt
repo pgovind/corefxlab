@@ -23,12 +23,12 @@ namespace Microsoft.Data
 <# foreach (MethodConfiguration method in methodConfiguration) { #>
 <# if (method.MethodType == MethodType.BinaryScalar || method.MethodType == MethodType.ComparisonScalar) {#>
         public DataFrame <#=method.MethodName#><T>(T value)
-            where T : struct
+            where T : unmanaged
 <# } else if (method.MethodType == MethodType.BinaryInt) { #>
         public DataFrame <#=method.MethodName#>(int value)
 <# } else { #>
         public DataFrame <#=method.MethodName#><T>(IReadOnlyList<T> values)
-            where T : struct
+            where T : unmanaged
 <# } #>
         {
 <# if (method.MethodType == MethodType.BinaryScalar || method.MethodType == MethodType.ComparisonScalar || method.MethodType == MethodType.BinaryInt) {#>

@@ -62,7 +62,24 @@ namespace Microsoft.Data
             }
         }
 
-        public PrimitiveColumnContainer() { }
+        public PrimitiveColumnContainer(long length = 0)
+        {
+            Buffers.Add(new DataFrameBuffer<T>());
+            while (length > 0)
+            {
+                var lastBuffer = Buffers[Buffers.Count - 1];
+                if (lastBuffer.Length == lastBuffer.MaxCapacity)
+                {
+                    lastBuffer = new DataFrameBuffer<T>();
+                    Buffers.Add(lastBuffer);
+                }
+                int allocatable = (int)Math.Min(length, lastBuffer.MaxCapacity);
+                lastBuffer.EnsureCapacity(allocatable);
+                lastBuffer.Length = allocatable;
+                length -= allocatable;
+                Length += lastBuffer.Length;
+            }
+        }
 
         public void Append(T value)
         {
@@ -72,6 +89,7 @@ namespace Microsoft.Data
                 lastBuffer = new DataFrameBuffer<T>();
             }
             lastBuffer.Append(value);
+            Length++;
         }
 
         public long Length;
@@ -181,9 +199,9 @@ namespace Microsoft.Data
                 ret.Buffers.Add(newBuffer);
                 newBuffer.EnsureCapacity(buffer.Length);
                 var span = buffer.Span;
-                for (int ii = 0; ii < buffer.Length; ii++)
+                for (int i = 0; i < buffer.Length; i++)
                 {
-                    newBuffer.Append(DoubleConverter<T>.Instance.GetDouble(span[ii]));
+                    newBuffer.Append(DoubleConverter<T>.Instance.GetDouble(span[i]));
                 }
             }
             return ret;
@@ -199,9 +217,9 @@ namespace Microsoft.Data
                 ret.Buffers.Add(newBuffer);
                 newBuffer.EnsureCapacity(buffer.Length);
                 var span = buffer.Span;
-                for (int ii = 0; ii < buffer.Length; ii++)
+                for (int i = 0; i < buffer.Length; i++)
                 {
-                    newBuffer.Append(DecimalConverter<T>.Instance.GetDecimal(span[ii]));
+                    newBuffer.Append(DecimalConverter<T>.Instance.GetDecimal(span[i]));
                 }
             }
             return ret;

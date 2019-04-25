@@ -18,7 +18,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn Add<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -29,7 +29,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn Subtract<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -40,7 +40,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn Multiply<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -51,7 +51,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn Divide<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -62,7 +62,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn Modulo<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -73,7 +73,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn And<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -84,7 +84,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn Or<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -95,7 +95,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn Xor<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -116,7 +116,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn Equals<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -127,7 +127,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn NotEquals<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -138,7 +138,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn GreaterThanOrEqual<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -149,7 +149,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn LessThanOrEqual<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -160,7 +160,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn GreaterThan<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }
@@ -171,7 +171,7 @@ namespace Microsoft.Data
         }
 
         public virtual BaseColumn LessThan<T>(T value)
-            where T : struct
+            where T : unmanaged
         {
             throw new NotImplementedException();
         }

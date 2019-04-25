@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +18,7 @@ namespace Microsoft.Data
             {
                 throw new ArgumentException($"Column lengths are mismatched", nameof(column));
             }
-            StringColumn ret = Clone();
+            StringColumn ret = _Clone();
             for (long i = 0; i < Length; i++)
             {
                 ret[i] += column[i].ToString();
@@ -24,11 +28,11 @@ namespace Microsoft.Data
 
         public override BaseColumn Add<T>(T value)
         {
-            StringColumn ret = Clone();
+            StringColumn ret = _Clone();
             string valString = value.ToString();
-            for (int i = 0; i < ret.stringBuffers.Count; i++)
+            for (int i = 0; i < ret._stringBuffers.Count; i++)
             {
-                IList<string> buffer = ret.stringBuffers[i];
+                IList<string> buffer = ret._stringBuffers[i];
                 int bufferLen = buffer.Count;
                 for (int j = 0; j < bufferLen; j++)
                 {
@@ -45,26 +49,21 @@ namespace Microsoft.Data
             {
                 throw new ArgumentException($"Column lengths are mismatched", nameof(column));
             }
-            PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>(Name);
+            PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>(Name, Length);
             for (long i = 0; i < Length; i++)
             {
-                ret.Append(this[i] == column[i]);
+                ret[i] = (string)this[i] == column[i].ToString();
             }
             return ret;
         }
 
         public override BaseColumn Equals<T>(T value)
         {
-            PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>(Name);
+            PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>(Name, Length);
             string valString = value.ToString();
-            for (int i = 0; i < stringBuffers.Count; i++)
+            for (long i = 0; i < Length; i++)
             {
-                IList<string> buffer = stringBuffers[i];
-                int bufferLen = buffer.Count;
-                for (int j = 0; j < bufferLen; j++)
-                {
-                    ret.Append(buffer[j] == valString);
-                }
+                ret[i] = (string)this[i] == valString;
             }
             return ret;
         }
@@ -76,26 +75,21 @@ namespace Microsoft.Data
             {
                 throw new ArgumentException($"Column lengths are mismatched", nameof(column));
             }
-            PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>(Name);
+            PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>(Name, Length);
             for (long i = 0; i < Length; i++)
             {
-                ret.Append(this[i] != column[i]);
+                ret[i] = (string)this[i] != column[i].ToString();
             }
             return ret;
         }
 
         public override BaseColumn NotEquals<T>(T value)
         {
-            PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>(Name);
+            PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>(Name, Length);
             string valString = value.ToString();
-            for (int i = 0; i < stringBuffers.Count; i++)
+            for (long i = 0; i < Length; i++)
             {
-                IList<string> buffer = stringBuffers[i];
-                int bufferLen = buffer.Count;
-                for (int j = 0; j < bufferLen; j++)
-                {
-                    ret.Append(buffer[j] != valString);
-                }
+                ret[i] = (string)this[i] != valString;
             }
             return ret;
         }

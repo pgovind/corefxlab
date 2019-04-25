@@ -41,7 +41,7 @@ namespace Microsoft.Data.Tests
         static public DataFrame MakeDataFrameWithNumericColumns(int length)
         {
             BaseColumn byteColumn = new PrimitiveColumn<byte>("Byte", Enumerable.Range(0, length).Select(x => (byte)x));
-            BaseColumn charColumn = new PrimitiveColumn<char>("Char", Enumerable.Range(0, length).Select(x => (char)x));
+            BaseColumn charColumn = new PrimitiveColumn<char>("Char", Enumerable.Range(0, length).Select(x => (char)(x + 65)));
             BaseColumn decimalColumn = new PrimitiveColumn<decimal>("Decimal", Enumerable.Range(0, length).Select(x => (decimal)x));
             BaseColumn doubleColumn = new PrimitiveColumn<double>("Double", Enumerable.Range(0, length).Select(x => (double)x));
             BaseColumn floatColumn = new PrimitiveColumn<float>("Float", Enumerable.Range(0, length).Select(x => (float)x));
@@ -211,6 +211,31 @@ namespace Microsoft.Data.Tests
         }
 
         [Fact]
+        public void TestBinaryOperationsOnStringColumn()
+        {
+            var df = new DataFrame();
+            BaseColumn stringColumn = new StringColumn("String", Enumerable.Range(0, 10).Select(x => x.ToString()));
+            df.InsertColumn(0, stringColumn);
+
+            BaseColumn newCol = stringColumn.Equals(5);
+            Assert.Equal(true, newCol[5]);
+            Assert.Equal(false, newCol[0]);
+
+            BaseColumn stringColumnCopy = new StringColumn("String", Enumerable.Range(0, 10).Select(x => x.ToString()));
+            newCol = stringColumn.Equals(stringColumnCopy);
+            Assert.Equal(true, newCol[5]);
+            Assert.Equal(true, newCol[0]);
+
+            newCol = stringColumn.NotEquals(5);
+            Assert.Equal(false, newCol[5]);
+            Assert.Equal(true, newCol[0]);
+
+            newCol = stringColumn.NotEquals(stringColumnCopy);
+            Assert.Equal(false, newCol[5]);
+            Assert.Equal(false, newCol[0]);
+        }
+
+        [Fact]
         public void TestBinaryOperatorsWithConversions()
         {
             var df = MakeDataFrameWithNumericColumns(10);
@@ -357,6 +382,38 @@ namespace Microsoft.Data.Tests
             Assert.Equal(100.1, df["Double"][0]);
             df["Double"].Round();
             Assert.Equal(100.0, df["Double"][0]);
+        }
+
+        [Fact]
+        public void TestSort()
+        {
+            DataFrame df = MakeDataFrameWithAllColumnTypes(20);
+            df["Int"][0] = 100;
+            df["Int"][19] = -1;
+            df["Int"][5] = 2000;
+
+            // Sort by "Int" in ascending order
+            var sortedDf = df.Sort("Int");
+            Assert.Equal(-1,   sortedDf["Int"][0]);
+            Assert.Equal(100,  sortedDf["Int"][18]);
+            Assert.Equal(2000, sortedDf["Int"][19]);
+
+            // Sort by "Int" in descending order
+            sortedDf = df.Sort("Int", false);
+            Assert.Equal(-1,   sortedDf["Int"][19]);
+            Assert.Equal(100,  sortedDf["Int"][1]);
+            Assert.Equal(2000, sortedDf["Int"][0]);
+
+            // Sort by "String" in ascending order
+            sortedDf = df.Sort("String");
+            Assert.Equal(100, sortedDf["Int"][0]);
+            Assert.Equal(8, sortedDf["Int"][18]);
+            Assert.Equal(9, sortedDf["Int"][19]);
+
+            sortedDf = df.Sort("String", false);
+            Assert.Equal(100, sortedDf["Int"][19]);
+            Assert.Equal(8, sortedDf["Int"][1]);
+            Assert.Equal(9, sortedDf["Int"][0]);
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Microsoft.Data
 {
     public partial class PrimitiveColumn<T> : BaseColumn
-        where T : struct
+        where T : unmanaged
     {
         #region Binary Operations
         public override BaseColumn Add(BaseColumn column)
@@ -556,7 +556,7 @@ namespace Microsoft.Data
         }
 
         internal BaseColumn _Add<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -575,7 +575,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Add(column._columnContainer);
                         return newColumn;
                     }
@@ -604,7 +604,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Add(column._columnContainer);
                         return newColumn;
                     }
@@ -628,7 +628,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Add<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -643,7 +643,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Add(value);
                         return newColumn;
                     }
@@ -672,7 +672,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Add(value);
                         return newColumn;
                     }
@@ -696,7 +696,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Subtract<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -715,7 +715,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Subtract(column._columnContainer);
                         return newColumn;
                     }
@@ -744,7 +744,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Subtract(column._columnContainer);
                         return newColumn;
                     }
@@ -768,7 +768,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Subtract<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -783,7 +783,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Subtract(value);
                         return newColumn;
                     }
@@ -812,7 +812,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Subtract(value);
                         return newColumn;
                     }
@@ -836,7 +836,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Multiply<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -855,7 +855,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Multiply(column._columnContainer);
                         return newColumn;
                     }
@@ -884,7 +884,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Multiply(column._columnContainer);
                         return newColumn;
                     }
@@ -908,7 +908,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Multiply<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -923,7 +923,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Multiply(value);
                         return newColumn;
                     }
@@ -952,7 +952,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Multiply(value);
                         return newColumn;
                     }
@@ -976,7 +976,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Divide<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -995,7 +995,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Divide(column._columnContainer);
                         return newColumn;
                     }
@@ -1024,7 +1024,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Divide(column._columnContainer);
                         return newColumn;
                     }
@@ -1048,7 +1048,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Divide<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -1063,7 +1063,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Divide(value);
                         return newColumn;
                     }
@@ -1092,7 +1092,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Divide(value);
                         return newColumn;
                     }
@@ -1116,7 +1116,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Modulo<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -1135,7 +1135,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Modulo(column._columnContainer);
                         return newColumn;
                     }
@@ -1164,7 +1164,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Modulo(column._columnContainer);
                         return newColumn;
                     }
@@ -1188,7 +1188,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Modulo<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -1203,7 +1203,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Modulo(value);
                         return newColumn;
                     }
@@ -1232,7 +1232,7 @@ namespace Microsoft.Data
                     {
                         // No conversions
                         PrimitiveColumn<U> primitiveColumn = this as PrimitiveColumn<U>;
-                        PrimitiveColumn<U> newColumn = primitiveColumn.Clone();
+                        PrimitiveColumn<U> newColumn = primitiveColumn._Clone();
                         newColumn._columnContainer.Modulo(value);
                         return newColumn;
                     }
@@ -1256,7 +1256,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _And<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -1269,7 +1269,7 @@ namespace Microsoft.Data
                     {
                         throw new NotSupportedException();
                     }
-                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>).Clone();
+                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>)._Clone();
                     retColumn._columnContainer.And(column._columnContainer);
                     return retColumn;
                 case Type byteType when byteType == typeof(byte):
@@ -1289,7 +1289,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _And<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -1298,7 +1298,7 @@ namespace Microsoft.Data
                     {
                         throw new NotSupportedException();
                     }
-                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>).Clone();
+                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>)._Clone();
                     retColumn._columnContainer.And(value);
                     return retColumn;
                 case Type byteType when byteType == typeof(byte):
@@ -1318,7 +1318,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Or<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -1331,7 +1331,7 @@ namespace Microsoft.Data
                     {
                         throw new NotSupportedException();
                     }
-                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>).Clone();
+                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>)._Clone();
                     retColumn._columnContainer.Or(column._columnContainer);
                     return retColumn;
                 case Type byteType when byteType == typeof(byte):
@@ -1351,7 +1351,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Or<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -1360,7 +1360,7 @@ namespace Microsoft.Data
                     {
                         throw new NotSupportedException();
                     }
-                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>).Clone();
+                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>)._Clone();
                     retColumn._columnContainer.Or(value);
                     return retColumn;
                 case Type byteType when byteType == typeof(byte):
@@ -1380,7 +1380,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Xor<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -1393,7 +1393,7 @@ namespace Microsoft.Data
                     {
                         throw new NotSupportedException();
                     }
-                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>).Clone();
+                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>)._Clone();
                     retColumn._columnContainer.Xor(column._columnContainer);
                     return retColumn;
                 case Type byteType when byteType == typeof(byte):
@@ -1413,7 +1413,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Xor<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -1422,7 +1422,7 @@ namespace Microsoft.Data
                     {
                         throw new NotSupportedException();
                     }
-                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>).Clone();
+                    PrimitiveColumn<U> retColumn = (this as PrimitiveColumn<U>)._Clone();
                     retColumn._columnContainer.Xor(value);
                     return retColumn;
                 case Type byteType when byteType == typeof(byte):
@@ -1449,12 +1449,12 @@ namespace Microsoft.Data
                     throw new NotSupportedException();
                 case Type byteType when byteType == typeof(byte):
                     PrimitiveColumn<byte> byteColumn = this as PrimitiveColumn<byte>;
-                    var newbyteColumn = byteColumn.Clone();
+                    var newbyteColumn = byteColumn._Clone();
                     newbyteColumn._columnContainer.LeftShift(value);
                     return newbyteColumn;
                 case Type charType when charType == typeof(char):
                     PrimitiveColumn<char> charColumn = this as PrimitiveColumn<char>;
-                    var newcharColumn = charColumn.Clone();
+                    var newcharColumn = charColumn._Clone();
                     newcharColumn._columnContainer.LeftShift(value);
                     return newcharColumn;
                 case Type decimalType when decimalType == typeof(decimal):
@@ -1465,37 +1465,37 @@ namespace Microsoft.Data
                     throw new NotSupportedException();
                 case Type intType when intType == typeof(int):
                     PrimitiveColumn<int> intColumn = this as PrimitiveColumn<int>;
-                    var newintColumn = intColumn.Clone();
+                    var newintColumn = intColumn._Clone();
                     newintColumn._columnContainer.LeftShift(value);
                     return newintColumn;
                 case Type longType when longType == typeof(long):
                     PrimitiveColumn<long> longColumn = this as PrimitiveColumn<long>;
-                    var newlongColumn = longColumn.Clone();
+                    var newlongColumn = longColumn._Clone();
                     newlongColumn._columnContainer.LeftShift(value);
                     return newlongColumn;
                 case Type sbyteType when sbyteType == typeof(sbyte):
                     PrimitiveColumn<sbyte> sbyteColumn = this as PrimitiveColumn<sbyte>;
-                    var newsbyteColumn = sbyteColumn.Clone();
+                    var newsbyteColumn = sbyteColumn._Clone();
                     newsbyteColumn._columnContainer.LeftShift(value);
                     return newsbyteColumn;
                 case Type shortType when shortType == typeof(short):
                     PrimitiveColumn<short> shortColumn = this as PrimitiveColumn<short>;
-                    var newshortColumn = shortColumn.Clone();
+                    var newshortColumn = shortColumn._Clone();
                     newshortColumn._columnContainer.LeftShift(value);
                     return newshortColumn;
                 case Type uintType when uintType == typeof(uint):
                     PrimitiveColumn<uint> uintColumn = this as PrimitiveColumn<uint>;
-                    var newuintColumn = uintColumn.Clone();
+                    var newuintColumn = uintColumn._Clone();
                     newuintColumn._columnContainer.LeftShift(value);
                     return newuintColumn;
                 case Type ulongType when ulongType == typeof(ulong):
                     PrimitiveColumn<ulong> ulongColumn = this as PrimitiveColumn<ulong>;
-                    var newulongColumn = ulongColumn.Clone();
+                    var newulongColumn = ulongColumn._Clone();
                     newulongColumn._columnContainer.LeftShift(value);
                     return newulongColumn;
                 case Type ushortType when ushortType == typeof(ushort):
                     PrimitiveColumn<ushort> ushortColumn = this as PrimitiveColumn<ushort>;
-                    var newushortColumn = ushortColumn.Clone();
+                    var newushortColumn = ushortColumn._Clone();
                     newushortColumn._columnContainer.LeftShift(value);
                     return newushortColumn;
                 default:
@@ -1510,12 +1510,12 @@ namespace Microsoft.Data
                     throw new NotSupportedException();
                 case Type byteType when byteType == typeof(byte):
                     PrimitiveColumn<byte> byteColumn = this as PrimitiveColumn<byte>;
-                    var newbyteColumn = byteColumn.Clone();
+                    var newbyteColumn = byteColumn._Clone();
                     newbyteColumn._columnContainer.RightShift(value);
                     return newbyteColumn;
                 case Type charType when charType == typeof(char):
                     PrimitiveColumn<char> charColumn = this as PrimitiveColumn<char>;
-                    var newcharColumn = charColumn.Clone();
+                    var newcharColumn = charColumn._Clone();
                     newcharColumn._columnContainer.RightShift(value);
                     return newcharColumn;
                 case Type decimalType when decimalType == typeof(decimal):
@@ -1526,37 +1526,37 @@ namespace Microsoft.Data
                     throw new NotSupportedException();
                 case Type intType when intType == typeof(int):
                     PrimitiveColumn<int> intColumn = this as PrimitiveColumn<int>;
-                    var newintColumn = intColumn.Clone();
+                    var newintColumn = intColumn._Clone();
                     newintColumn._columnContainer.RightShift(value);
                     return newintColumn;
                 case Type longType when longType == typeof(long):
                     PrimitiveColumn<long> longColumn = this as PrimitiveColumn<long>;
-                    var newlongColumn = longColumn.Clone();
+                    var newlongColumn = longColumn._Clone();
                     newlongColumn._columnContainer.RightShift(value);
                     return newlongColumn;
                 case Type sbyteType when sbyteType == typeof(sbyte):
                     PrimitiveColumn<sbyte> sbyteColumn = this as PrimitiveColumn<sbyte>;
-                    var newsbyteColumn = sbyteColumn.Clone();
+                    var newsbyteColumn = sbyteColumn._Clone();
                     newsbyteColumn._columnContainer.RightShift(value);
                     return newsbyteColumn;
                 case Type shortType when shortType == typeof(short):
                     PrimitiveColumn<short> shortColumn = this as PrimitiveColumn<short>;
-                    var newshortColumn = shortColumn.Clone();
+                    var newshortColumn = shortColumn._Clone();
                     newshortColumn._columnContainer.RightShift(value);
                     return newshortColumn;
                 case Type uintType when uintType == typeof(uint):
                     PrimitiveColumn<uint> uintColumn = this as PrimitiveColumn<uint>;
-                    var newuintColumn = uintColumn.Clone();
+                    var newuintColumn = uintColumn._Clone();
                     newuintColumn._columnContainer.RightShift(value);
                     return newuintColumn;
                 case Type ulongType when ulongType == typeof(ulong):
                     PrimitiveColumn<ulong> ulongColumn = this as PrimitiveColumn<ulong>;
-                    var newulongColumn = ulongColumn.Clone();
+                    var newulongColumn = ulongColumn._Clone();
                     newulongColumn._columnContainer.RightShift(value);
                     return newulongColumn;
                 case Type ushortType when ushortType == typeof(ushort):
                     PrimitiveColumn<ushort> ushortColumn = this as PrimitiveColumn<ushort>;
-                    var newushortColumn = ushortColumn.Clone();
+                    var newushortColumn = ushortColumn._Clone();
                     newushortColumn._columnContainer.RightShift(value);
                     return newushortColumn;
                 default:
@@ -1564,7 +1564,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Equals<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -1645,7 +1645,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _Equals<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -1722,7 +1722,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _NotEquals<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -1803,7 +1803,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _NotEquals<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -1880,7 +1880,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _GreaterThanOrEqual<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -1955,7 +1955,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _GreaterThanOrEqual<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -2026,7 +2026,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _LessThanOrEqual<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -2101,7 +2101,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _LessThanOrEqual<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -2172,7 +2172,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _GreaterThan<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -2247,7 +2247,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _GreaterThan<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {
@@ -2318,7 +2318,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _LessThan<U>(PrimitiveColumn<U> column)
-            where U : struct
+            where U : unmanaged
         {
             if (column.Length != Length)
             {
@@ -2393,7 +2393,7 @@ namespace Microsoft.Data
             }
         }
         internal BaseColumn _LessThan<U>(U value)
-            where U : struct
+            where U : unmanaged
         {
             switch (typeof(T))
             {

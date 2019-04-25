@@ -58,7 +58,7 @@ namespace Microsoft.Data
         }
 
         public void InsertColumn<T>(int columnIndex, IEnumerable<T> column, string columnName)
-            where T : struct
+            where T : unmanaged
         {
             column = column ?? throw new ArgumentNullException(nameof(column));
             if ((uint)columnIndex > _columns.Count)
