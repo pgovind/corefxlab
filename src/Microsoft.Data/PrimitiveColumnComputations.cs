@@ -100,6 +100,7 @@ namespace Microsoft.Data
         {
             throw new NotSupportedException();
         }
+
         public void All(PrimitiveColumnContainer<bool> column, out bool ret)
         {
             ret = true;
@@ -116,6 +117,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Any(PrimitiveColumnContainer<bool> column, out bool ret)
         {
             ret = false;
@@ -132,42 +134,52 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummax(PrimitiveColumnContainer<bool> column)
         {
             throw new NotSupportedException();
         }
+
         public void Cummin(PrimitiveColumnContainer<bool> column)
         {
             throw new NotSupportedException();
         }
+
         public void Cumprod(PrimitiveColumnContainer<bool> column)
         {
             throw new NotSupportedException();
         }
+
         public void Cumsum(PrimitiveColumnContainer<bool> column)
         {
             throw new NotSupportedException();
         }
+
         public void Max(PrimitiveColumnContainer<bool> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Min(PrimitiveColumnContainer<bool> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Prod(PrimitiveColumnContainer<bool> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Sum(PrimitiveColumnContainer<bool> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Round(PrimitiveColumnContainer<bool> column)
         {
             throw new NotSupportedException();
         }
+
     }
     internal class ByteComputation : IPrimitiveColumnComputation<byte>
     {
@@ -182,14 +194,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<byte> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<byte> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<byte> column)
         {
 
@@ -204,6 +219,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<byte> column)
         {
 
@@ -218,6 +234,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<byte> column)
         {
 
@@ -232,6 +249,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<byte> column)
         {
 
@@ -246,6 +264,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<byte> column, out byte ret)
         {
 
@@ -259,6 +278,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<byte> column, out byte ret)
         {
 
@@ -272,6 +292,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<byte> column, out byte ret)
         {
 
@@ -285,6 +306,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<byte> column, out byte ret)
         {
 
@@ -298,6 +320,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<byte> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -309,6 +332,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class CharComputation : IPrimitiveColumnComputation<char>
     {
@@ -323,14 +347,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<char> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<char> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<char> column)
         {
 
@@ -345,6 +372,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<char> column)
         {
 
@@ -359,6 +387,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<char> column)
         {
 
@@ -373,6 +402,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<char> column)
         {
 
@@ -387,6 +417,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<char> column, out char ret)
         {
 
@@ -400,6 +431,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<char> column, out char ret)
         {
 
@@ -413,6 +445,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<char> column, out char ret)
         {
 
@@ -426,6 +459,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<char> column, out char ret)
         {
 
@@ -439,6 +473,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<char> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -450,6 +485,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class DecimalComputation : IPrimitiveColumnComputation<decimal>
     {
@@ -464,14 +500,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<decimal> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<decimal> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<decimal> column)
         {
 
@@ -486,6 +525,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<decimal> column)
         {
 
@@ -500,6 +540,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<decimal> column)
         {
 
@@ -514,6 +555,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<decimal> column)
         {
 
@@ -528,6 +570,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<decimal> column, out decimal ret)
         {
 
@@ -541,6 +584,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<decimal> column, out decimal ret)
         {
 
@@ -554,6 +598,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<decimal> column, out decimal ret)
         {
 
@@ -567,6 +612,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<decimal> column, out decimal ret)
         {
 
@@ -580,6 +626,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<decimal> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -591,6 +638,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class DoubleComputation : IPrimitiveColumnComputation<double>
     {
@@ -605,14 +653,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<double> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<double> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<double> column)
         {
 
@@ -627,6 +678,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<double> column)
         {
 
@@ -641,6 +693,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<double> column)
         {
 
@@ -655,6 +708,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<double> column)
         {
 
@@ -669,6 +723,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<double> column, out double ret)
         {
 
@@ -682,6 +737,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<double> column, out double ret)
         {
 
@@ -695,6 +751,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<double> column, out double ret)
         {
 
@@ -708,6 +765,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<double> column, out double ret)
         {
 
@@ -721,6 +779,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<double> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -732,6 +791,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class FloatComputation : IPrimitiveColumnComputation<float>
     {
@@ -746,14 +806,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<float> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<float> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<float> column)
         {
 
@@ -768,6 +831,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<float> column)
         {
 
@@ -782,6 +846,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<float> column)
         {
 
@@ -796,6 +861,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<float> column)
         {
 
@@ -810,6 +876,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<float> column, out float ret)
         {
 
@@ -823,6 +890,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<float> column, out float ret)
         {
 
@@ -836,6 +904,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<float> column, out float ret)
         {
 
@@ -849,6 +918,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<float> column, out float ret)
         {
 
@@ -862,6 +932,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<float> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -873,6 +944,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class IntComputation : IPrimitiveColumnComputation<int>
     {
@@ -887,14 +959,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<int> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<int> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<int> column)
         {
 
@@ -909,6 +984,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<int> column)
         {
 
@@ -923,6 +999,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<int> column)
         {
 
@@ -937,6 +1014,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<int> column)
         {
 
@@ -951,6 +1029,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<int> column, out int ret)
         {
 
@@ -964,6 +1043,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<int> column, out int ret)
         {
 
@@ -977,6 +1057,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<int> column, out int ret)
         {
 
@@ -990,6 +1071,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<int> column, out int ret)
         {
 
@@ -1003,6 +1085,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<int> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -1014,6 +1097,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class LongComputation : IPrimitiveColumnComputation<long>
     {
@@ -1028,14 +1112,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<long> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<long> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<long> column)
         {
 
@@ -1050,6 +1137,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<long> column)
         {
 
@@ -1064,6 +1152,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<long> column)
         {
 
@@ -1078,6 +1167,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<long> column)
         {
 
@@ -1092,6 +1182,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<long> column, out long ret)
         {
 
@@ -1105,6 +1196,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<long> column, out long ret)
         {
 
@@ -1118,6 +1210,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<long> column, out long ret)
         {
 
@@ -1131,6 +1224,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<long> column, out long ret)
         {
 
@@ -1144,6 +1238,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<long> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -1155,6 +1250,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class SByteComputation : IPrimitiveColumnComputation<sbyte>
     {
@@ -1169,14 +1265,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<sbyte> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<sbyte> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<sbyte> column)
         {
 
@@ -1191,6 +1290,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<sbyte> column)
         {
 
@@ -1205,6 +1305,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<sbyte> column)
         {
 
@@ -1219,6 +1320,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<sbyte> column)
         {
 
@@ -1233,6 +1335,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<sbyte> column, out sbyte ret)
         {
 
@@ -1246,6 +1349,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<sbyte> column, out sbyte ret)
         {
 
@@ -1259,6 +1363,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<sbyte> column, out sbyte ret)
         {
 
@@ -1272,6 +1377,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<sbyte> column, out sbyte ret)
         {
 
@@ -1285,6 +1391,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<sbyte> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -1296,6 +1403,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class ShortComputation : IPrimitiveColumnComputation<short>
     {
@@ -1310,14 +1418,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<short> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<short> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<short> column)
         {
 
@@ -1332,6 +1443,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<short> column)
         {
 
@@ -1346,6 +1458,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<short> column)
         {
 
@@ -1360,6 +1473,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<short> column)
         {
 
@@ -1374,6 +1488,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<short> column, out short ret)
         {
 
@@ -1387,6 +1502,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<short> column, out short ret)
         {
 
@@ -1400,6 +1516,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<short> column, out short ret)
         {
 
@@ -1413,6 +1530,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<short> column, out short ret)
         {
 
@@ -1426,6 +1544,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<short> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -1437,6 +1556,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class UIntComputation : IPrimitiveColumnComputation<uint>
     {
@@ -1451,14 +1571,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<uint> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<uint> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<uint> column)
         {
 
@@ -1473,6 +1596,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<uint> column)
         {
 
@@ -1487,6 +1611,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<uint> column)
         {
 
@@ -1501,6 +1626,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<uint> column)
         {
 
@@ -1515,6 +1641,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<uint> column, out uint ret)
         {
 
@@ -1528,6 +1655,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<uint> column, out uint ret)
         {
 
@@ -1541,6 +1669,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<uint> column, out uint ret)
         {
 
@@ -1554,6 +1683,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<uint> column, out uint ret)
         {
 
@@ -1567,6 +1697,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<uint> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -1578,6 +1709,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class ULongComputation : IPrimitiveColumnComputation<ulong>
     {
@@ -1592,14 +1724,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<ulong> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<ulong> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<ulong> column)
         {
 
@@ -1614,6 +1749,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<ulong> column)
         {
 
@@ -1628,6 +1764,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<ulong> column)
         {
 
@@ -1642,6 +1779,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<ulong> column)
         {
 
@@ -1656,6 +1794,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<ulong> column, out ulong ret)
         {
 
@@ -1669,6 +1808,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<ulong> column, out ulong ret)
         {
 
@@ -1682,6 +1822,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<ulong> column, out ulong ret)
         {
 
@@ -1695,6 +1836,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<ulong> column, out ulong ret)
         {
 
@@ -1708,6 +1850,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<ulong> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -1719,6 +1862,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
     internal class UShortComputation : IPrimitiveColumnComputation<ushort>
     {
@@ -1733,14 +1877,17 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void All(PrimitiveColumnContainer<ushort> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Any(PrimitiveColumnContainer<ushort> column, out bool ret)
         {
             throw new NotSupportedException();
         }
+
         public void Cummax(PrimitiveColumnContainer<ushort> column)
         {
 
@@ -1755,6 +1902,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cummin(PrimitiveColumnContainer<ushort> column)
         {
 
@@ -1769,6 +1917,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumprod(PrimitiveColumnContainer<ushort> column)
         {
 
@@ -1783,6 +1932,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Cumsum(PrimitiveColumnContainer<ushort> column)
         {
 
@@ -1797,6 +1947,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Max(PrimitiveColumnContainer<ushort> column, out ushort ret)
         {
 
@@ -1810,6 +1961,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Min(PrimitiveColumnContainer<ushort> column, out ushort ret)
         {
 
@@ -1823,6 +1975,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Prod(PrimitiveColumnContainer<ushort> column, out ushort ret)
         {
 
@@ -1836,6 +1989,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Sum(PrimitiveColumnContainer<ushort> column, out ushort ret)
         {
 
@@ -1849,6 +2003,7 @@ namespace Microsoft.Data
                 }
             }
         }
+
         public void Round(PrimitiveColumnContainer<ushort> column)
         {
             for (int b = 0; b < column.Buffers.Count; b++)
@@ -1860,5 +2015,6 @@ namespace Microsoft.Data
                 }
             }
         }
+
     }
 }
