@@ -207,7 +207,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<byte> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -222,7 +221,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<byte> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -237,7 +235,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<byte> column)
         {
-
             var ret = (byte)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -252,7 +249,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<byte> column)
         {
-
             var ret = (byte)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -267,7 +263,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<byte> column, out byte ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -281,7 +276,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<byte> column, out byte ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -295,7 +289,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<byte> column, out byte ret)
         {
-
             ret = (byte)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -309,7 +302,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<byte> column, out byte ret)
         {
-
             ret = (byte)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -360,7 +352,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<char> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -375,7 +366,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<char> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -390,7 +380,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<char> column)
         {
-
             var ret = (char)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -405,7 +394,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<char> column)
         {
-
             var ret = (char)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -420,7 +408,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<char> column, out char ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -434,7 +421,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<char> column, out char ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -448,7 +434,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<char> column, out char ret)
         {
-
             ret = (char)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -462,7 +447,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<char> column, out char ret)
         {
-
             ret = (char)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -513,7 +497,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<decimal> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -528,7 +511,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<decimal> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -543,7 +525,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<decimal> column)
         {
-
             var ret = (decimal)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -558,7 +539,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<decimal> column)
         {
-
             var ret = (decimal)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -573,7 +553,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<decimal> column, out decimal ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -587,7 +566,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<decimal> column, out decimal ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -601,7 +579,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<decimal> column, out decimal ret)
         {
-
             ret = (decimal)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -615,7 +592,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<decimal> column, out decimal ret)
         {
-
             ret = (decimal)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -666,7 +642,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<double> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -681,7 +656,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<double> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -696,7 +670,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<double> column)
         {
-
             var ret = (double)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -711,7 +684,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<double> column)
         {
-
             var ret = (double)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -726,7 +698,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<double> column, out double ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -740,7 +711,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<double> column, out double ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -754,7 +724,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<double> column, out double ret)
         {
-
             ret = (double)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -768,7 +737,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<double> column, out double ret)
         {
-
             ret = (double)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -819,7 +787,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<float> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -834,7 +801,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<float> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -849,7 +815,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<float> column)
         {
-
             var ret = (float)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -864,7 +829,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<float> column)
         {
-
             var ret = (float)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -879,7 +843,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<float> column, out float ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -893,7 +856,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<float> column, out float ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -907,7 +869,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<float> column, out float ret)
         {
-
             ret = (float)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -921,7 +882,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<float> column, out float ret)
         {
-
             ret = (float)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -972,7 +932,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<int> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -987,7 +946,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<int> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1002,7 +960,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<int> column)
         {
-
             var ret = (int)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1017,7 +974,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<int> column)
         {
-
             var ret = (int)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1032,7 +988,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<int> column, out int ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1046,7 +1001,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<int> column, out int ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1060,7 +1014,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<int> column, out int ret)
         {
-
             ret = (int)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1074,7 +1027,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<int> column, out int ret)
         {
-
             ret = (int)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1125,7 +1077,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<long> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1140,7 +1091,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<long> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1155,7 +1105,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<long> column)
         {
-
             var ret = (long)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1170,7 +1119,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<long> column)
         {
-
             var ret = (long)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1185,7 +1133,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<long> column, out long ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1199,7 +1146,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<long> column, out long ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1213,7 +1159,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<long> column, out long ret)
         {
-
             ret = (long)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1227,7 +1172,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<long> column, out long ret)
         {
-
             ret = (long)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1278,7 +1222,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<sbyte> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1293,7 +1236,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<sbyte> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1308,7 +1250,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<sbyte> column)
         {
-
             var ret = (sbyte)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1323,7 +1264,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<sbyte> column)
         {
-
             var ret = (sbyte)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1338,7 +1278,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<sbyte> column, out sbyte ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1352,7 +1291,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<sbyte> column, out sbyte ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1366,7 +1304,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<sbyte> column, out sbyte ret)
         {
-
             ret = (sbyte)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1380,7 +1317,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<sbyte> column, out sbyte ret)
         {
-
             ret = (sbyte)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1431,7 +1367,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<short> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1446,7 +1381,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<short> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1461,7 +1395,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<short> column)
         {
-
             var ret = (short)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1476,7 +1409,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<short> column)
         {
-
             var ret = (short)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1491,7 +1423,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<short> column, out short ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1505,7 +1436,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<short> column, out short ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1519,7 +1449,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<short> column, out short ret)
         {
-
             ret = (short)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1533,7 +1462,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<short> column, out short ret)
         {
-
             ret = (short)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1584,7 +1512,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<uint> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1599,7 +1526,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<uint> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1614,7 +1540,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<uint> column)
         {
-
             var ret = (uint)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1629,7 +1554,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<uint> column)
         {
-
             var ret = (uint)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1644,7 +1568,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<uint> column, out uint ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1658,7 +1581,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<uint> column, out uint ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1672,7 +1594,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<uint> column, out uint ret)
         {
-
             ret = (uint)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1686,7 +1607,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<uint> column, out uint ret)
         {
-
             ret = (uint)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1737,7 +1657,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<ulong> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1752,7 +1671,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<ulong> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1767,7 +1685,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<ulong> column)
         {
-
             var ret = (ulong)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1782,7 +1699,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<ulong> column)
         {
-
             var ret = (ulong)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1797,7 +1713,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<ulong> column, out ulong ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1811,7 +1726,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<ulong> column, out ulong ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1825,7 +1739,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<ulong> column, out ulong ret)
         {
-
             ret = (ulong)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1839,7 +1752,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<ulong> column, out ulong ret)
         {
-
             ret = (ulong)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1890,7 +1802,6 @@ namespace Microsoft.Data
 
         public void Cummax(PrimitiveColumnContainer<ushort> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1905,7 +1816,6 @@ namespace Microsoft.Data
 
         public void Cummin(PrimitiveColumnContainer<ushort> column)
         {
-
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1920,7 +1830,6 @@ namespace Microsoft.Data
 
         public void Cumprod(PrimitiveColumnContainer<ushort> column)
         {
-
             var ret = (ushort)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1935,7 +1844,6 @@ namespace Microsoft.Data
 
         public void Cumsum(PrimitiveColumnContainer<ushort> column)
         {
-
             var ret = (ushort)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1950,7 +1858,6 @@ namespace Microsoft.Data
 
         public void Max(PrimitiveColumnContainer<ushort> column, out ushort ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1964,7 +1871,6 @@ namespace Microsoft.Data
 
         public void Min(PrimitiveColumnContainer<ushort> column, out ushort ret)
         {
-
             ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1978,7 +1884,6 @@ namespace Microsoft.Data
 
         public void Prod(PrimitiveColumnContainer<ushort> column, out ushort ret)
         {
-
             ret = (ushort)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {
@@ -1992,7 +1897,6 @@ namespace Microsoft.Data
 
         public void Sum(PrimitiveColumnContainer<ushort> column, out ushort ret)
         {
-
             ret = (ushort)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
             {

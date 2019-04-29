@@ -72,7 +72,6 @@ namespace Microsoft.Data
             throw new NotSupportedException();
 <# } else { #>
 <# if (method.MethodName == "Cummax" || method.MethodName == "Cummin" || method.MethodName == "Cumprod" || method.MethodName == "Cumsum" || method.MethodName == "Max" || method.MethodName == "Min" || method.MethodName == "Prod" || method.MethodName == "Sum") { #>
-
 <# if (method.MethodName == "Cummax" || method.MethodName == "Cummin") { #>
             var ret = column.Buffers[0].Span[0];
 <# } else if (method.MethodName == "Max" || method.MethodName == "Min") { #>
