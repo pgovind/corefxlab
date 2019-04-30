@@ -5,13 +5,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.ML;
 
 namespace Microsoft.Data
 {
     /// <summary>
     /// A DataFrame to support indexing, binary operations, sorting, selection and other APIs. This will eventually also expose an IDataView for ML.NET
     /// </summary>
-    public partial class DataFrame
+    public partial class DataFrame : IDataView
     {
         private readonly DataFrameTable _table;
         public DataFrame()

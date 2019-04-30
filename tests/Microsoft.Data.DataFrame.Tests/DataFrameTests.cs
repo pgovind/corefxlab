@@ -415,5 +415,26 @@ namespace Microsoft.Data.Tests
             Assert.Equal(8, sortedDf["Int"][1]);
             Assert.Equal(9, sortedDf["Int"][0]);
         }
+
+        [Fact]
+        public void TestIDataView()
+        {
+            var df = new DataFrame();
+            BaseColumn intColumn = new PrimitiveColumn<int>("Int", Enumerable.Range(0, 10).Select((x) => x));
+            BaseColumn doubleColumn = new PrimitiveColumn<double>("Double", Enumerable.Range(0, 10).Select((x) => (double)x));
+            df.InsertColumn(0, intColumn);
+            df.InsertColumn(1, doubleColumn);
+
+            var schema = df.Schema;
+            var intSchemaColumn = schema.ElementAt(0);
+            var cursor = df.GetRowCursor(new[] { intSchemaColumn });
+            var intGetter = cursor.GetGetter<int>(intSchemaColumn);
+            int intValue = -1;
+            while (cursor.MoveNext())
+            {
+                intGetter(ref intValue);
+                int bh = -1;
+            }
+        }
     }
 }
