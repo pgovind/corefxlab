@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Microsoft.Data
 {
@@ -72,6 +73,14 @@ namespace Microsoft.Data
 
         public override string ToString()
         {
+            StringBuilder sb = new StringBuilder();
+            for (long i = 0; i < Math.Min(Length, 25); i++)
+            {
+                sb.Append(string.Format("{0,-14}", this[i].ToString()));
+                sb.AppendLine();
+            }
+            return sb.ToString();
+
             return $"{Name}: {_columnContainer.ToString()}";
         }
 
@@ -142,6 +151,103 @@ namespace Microsoft.Data
                     span[i] = func(span[i]);
                 }
             }
+        }
+
+        public override BaseColumn Clip<U>(U lower, U upper)
+        {
+            if (typeof(U) == typeof(T))
+            {
+                return _Clip((T)(object)lower, (T)(object)upper);
+            }
+            throw new ArgumentException($"Argument types must match Column type {DataType}");
+        }
+
+        public override Dictionary<string, float> Description()
+        {
+            Dictionary<string, float> ret = new Dictionary<string, float>();
+            float max = (float)this.Max();
+            float min = (float)this.Min();
+            float mean = (float)((float)Sum() / Length);
+            ret["Max"] = max;
+            ret["Min"] = min;
+            ret["Mean"] = mean;
+            return ret;
+        }
+
+        public override BaseColumn ApplyFilter(PrimitiveColumn<bool> filter)
+        {
+            if (filter.Length != Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(filter));
+            }
+            var ret = new PrimitiveColumn<T>(Name);
+            for (int i = 0; i < Length; i++)
+            {
+                if ((bool)filter[i] == true)
+                {
+                    ret.Append((T)this[i]);
+                }
+            }
+            return ret;
+        }
+
+        public override BaseColumn Filter<U>(U lower, U upper)
+        {
+            if (typeof(U) == typeof(T))
+            {
+                return _Filter((T)(object)lower, (T)(object)upper);
+            }
+            throw new ArgumentException($"Argument types must match Column type {DataType}");
+        }
+
+        /// <summary>
+        /// Filters values by setting a false flag for values that are outside the input parameters
+        /// </summary>
+        /// <param name="lo"></param>
+        /// <param name="hi"></param>
+        /// <returns></returns>
+        private PrimitiveColumn<bool> _Filter(T lo, T hi)
+        {
+            PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>("Filter", Length);
+            var comparer = Comparer<T>.Default;
+            for (long i = 0; i < Length; i++)
+            {
+                T value = (T)this[i];
+
+                if (comparer.Compare(value, lo) < 0)
+                {
+                    ret[i] = false;
+                }
+                else if (comparer.Compare(value, hi) > 0)
+                {
+                    ret[i] = false;
+                }
+                else
+                {
+                    ret[i] = true;
+                }
+            }
+            return ret;
+        }
+
+        private BaseColumn _Clip(T lo, T hi)
+        {
+            var ret = _Clone();
+            var comparer = Comparer<T>.Default;
+            for (long i = 0; i < Length; i++)
+            {
+                T value = (T)ret[i];
+                
+                if (comparer.Compare(value, lo) < 0)
+                {
+                    ret[i] = lo;
+                }
+                if (comparer.Compare(value, hi) > 0)
+                {
+                    ret[i] = hi;
+                }
+            }
+            return ret;
         }
     }
 }

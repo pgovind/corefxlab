@@ -160,6 +160,8 @@ namespace Microsoft.Data
         public PrimitiveColumnContainer<T> Clone()
         {
             var ret = new PrimitiveColumnContainer<T>();
+            // HACK
+            ret.Buffers.Clear();
             foreach (DataFrameBuffer<T> buffer in Buffers)
             {
                 DataFrameBuffer<T> newBuffer = new DataFrameBuffer<T>();
@@ -177,6 +179,8 @@ namespace Microsoft.Data
         internal PrimitiveColumnContainer<bool> CloneAsBoolContainer()
         {
             var ret = new PrimitiveColumnContainer<bool>();
+            // HACK
+            ret.Buffers.Clear();
             foreach (var buffer in Buffers)
             {
                 DataFrameBuffer<bool> newBuffer = new DataFrameBuffer<bool>();
@@ -192,6 +196,8 @@ namespace Microsoft.Data
         internal PrimitiveColumnContainer<double> CloneAsDoubleContainer()
         {
             var ret = new PrimitiveColumnContainer<double>();
+            // HACK
+            ret.Buffers.Clear();
             foreach(var buffer in Buffers)
             {
                 ret.Length += buffer.Length;
@@ -210,6 +216,8 @@ namespace Microsoft.Data
         internal PrimitiveColumnContainer<decimal> CloneAsDecimalContainer()
         {
             var ret = new PrimitiveColumnContainer<decimal>();
+            // HACK
+            ret.Buffers.Clear();
             foreach(var buffer in Buffers)
             {
                 ret.Length += buffer.Length;

@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.Data
 {
@@ -138,5 +139,75 @@ namespace Microsoft.Data
             return -1;
         }
 
+        public void AppendRow(long index, string[] values)
+        {
+            if (values.Length != ColumnCount)
+            {
+                throw new ArgumentException($"Expected values.Length {values.Length} to be the number of columns in the table {ColumnCount}");
+            }
+            for (int i = 0; i < values.Length; i++)
+            {
+                string value = values[i];
+                BaseColumn column = Column(i);
+                switch (column.DataType)
+                {
+                    case Type boolType when boolType == typeof(bool):
+                        (column as PrimitiveColumn<bool>).Append(bool.Parse(value));
+                        continue;
+                    case Type byteType when byteType == typeof(byte):
+                        (column as PrimitiveColumn<byte>).Append(byte.Parse(value));
+                        continue;
+                    case Type charType when charType == typeof(char):
+                        (column as PrimitiveColumn<char>).Append(char.Parse(value));
+                        continue;
+                    case Type decimalType when decimalType == typeof(decimal):
+                        (column as PrimitiveColumn<decimal>).Append(decimal.Parse(value));
+                        continue;
+                    case Type doubleType when doubleType == typeof(double):
+                        (column as PrimitiveColumn<double>).Append(double.Parse(value));
+                        
+                        continue;
+                    case Type floatType when floatType == typeof(float):
+                        (column as PrimitiveColumn<float>).Append(float.Parse(value));
+                        
+                        continue;
+                    case Type intType when intType == typeof(int):
+                        (column as PrimitiveColumn<int>).Append(int.Parse(value));
+                        
+                        continue;
+                    case Type longType when longType == typeof(long):
+                        (column as PrimitiveColumn<long>).Append(long.Parse(value));
+                        
+                        continue;
+                    case Type sbyteType when sbyteType == typeof(sbyte):
+                        (column as PrimitiveColumn<sbyte>).Append(sbyte.Parse(value));
+                        
+                        continue;
+                    case Type shortType when shortType == typeof(short):
+                        (column as PrimitiveColumn<short>).Append(short.Parse(value));
+                        
+                        continue;
+                    case Type uintType when uintType == typeof(uint):
+                        (column as PrimitiveColumn<uint>).Append(uint.Parse(value));
+                        
+                        continue;
+                    case Type ulongType when ulongType == typeof(ulong):
+                        (column as PrimitiveColumn<ulong>).Append(ulong.Parse(value));
+                        
+                        continue;
+                    case Type ushortType when ushortType == typeof(ushort):
+                        (column as PrimitiveColumn<ushort>).Append(ushort.Parse(value));
+                        
+                        continue;
+                    case Type stringType when stringType == typeof(string):
+                        (column as StringColumn).Append(value);
+                        
+                        continue;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            RowCount++;
+        }
     }
 }

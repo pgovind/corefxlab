@@ -65,7 +65,15 @@ namespace Microsoft.Data
             get
             {
                 int bufferIndex = GetBufferIndexContainingRowIndex(ref rowIndex);
-                return _stringBuffers[bufferIndex][(int)rowIndex];
+                try
+                {
+                    return _stringBuffers[bufferIndex][(int)rowIndex];
+                }
+                catch (Exception)
+                {
+                    int bh = -1;
+                    throw;
+                }
             }
             set
             {
@@ -191,6 +199,23 @@ namespace Microsoft.Data
                     {
                         ret.Append((string)this[(long)mapIndices[i]]);
                     }
+                }
+            }
+            return ret;
+        }
+
+        public override BaseColumn ApplyFilter(PrimitiveColumn<bool> filter)
+        {
+            if (filter.Length != Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(filter));
+            }
+            var ret = new StringColumn(Name, 0);
+            for (int i = 0; i < Length; i++)
+            {
+                if ((bool)filter[i] == true)
+                {
+                    ret.Append((string)this[i]);
                 }
             }
             return ret;

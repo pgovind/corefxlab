@@ -39,6 +39,8 @@ namespace Microsoft.Data
 
         public Type DataType { get; }
 
+        //public virtual void Append<T>(T value) => throw new NotImplementedException();
+
         public virtual object this[long rowIndex]
         {
             get => throw new NotImplementedException();
@@ -59,6 +61,30 @@ namespace Microsoft.Data
         public virtual BaseColumn Clone(BaseColumn mapIndices = null, bool invertMapIndices = false) => throw new NotImplementedException();
 
         public virtual BaseColumn Sort(bool ascending = true) => throw new NotImplementedException();
+
+        /// <summary>
+        /// Trim values to the input's thresholds
+        /// </summary>
+        /// <typeparam name="U"></typeparam>
+        /// <param name="lower"></param>
+        /// <param name="upper"></param>
+        /// <returns></returns>
+        public virtual BaseColumn Clip<U>(U lower, U upper)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Dictionary<string, float> Description()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual BaseColumn ApplyFilter(PrimitiveColumn<bool> filter) => throw new NotImplementedException();
+
+        public virtual BaseColumn Filter<U>(U lower, U upper)
+        {
+            throw new NotImplementedException();
+        }
 
         public virtual BaseColumn GetAscendingSortIndices() => throw new NotImplementedException();
 
