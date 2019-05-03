@@ -15,8 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ML" Version="1.0.0-preview" />
-    <PackageReference Include="Microsoft.ML.AutoML" Version="0.3.0-preview-27701-4" />
+    <PackageReference Include="Microsoft.ML" Version="1.0.0" />
     <PackageReference Include="System.Buffers" Version="4.5.0" />
     <PackageReference Include="System.Memory" Version="4.5.1" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.1" />
