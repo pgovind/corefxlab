@@ -11,7 +11,7 @@ using System.Text;
 namespace Microsoft.Data
 {
     /// <summary>
-    /// The base column type. All API definitions start here
+    /// The base column type. All APIs should be defined here first
     /// </summary>
     public abstract partial class BaseColumn
     {
@@ -41,9 +41,12 @@ namespace Microsoft.Data
 
         public virtual object this[long rowIndex]
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get => GetValue(rowIndex);
+            set => SetValue(rowIndex, value);
         }
+
+        protected virtual object GetValue(long rowIndex) => throw new NotImplementedException();
+        protected virtual void SetValue(long rowIndex, object value) => throw new NotImplementedException();
 
         public virtual object this[long startIndex, int length]
         {

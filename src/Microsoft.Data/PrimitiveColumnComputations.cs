@@ -16,13 +16,13 @@ namespace Microsoft.Data
         void Abs(PrimitiveColumnContainer<T> column);
         void All(PrimitiveColumnContainer<T> column, out bool ret);
         void Any(PrimitiveColumnContainer<T> column, out bool ret);
-        void Cummax(PrimitiveColumnContainer<T> column);
-        void Cummin(PrimitiveColumnContainer<T> column);
-        void Cumprod(PrimitiveColumnContainer<T> column);
-        void Cumsum(PrimitiveColumnContainer<T> column);
+        void CumulativeMax(PrimitiveColumnContainer<T> column);
+        void CumulativeMin(PrimitiveColumnContainer<T> column);
+        void CumulativeProduct(PrimitiveColumnContainer<T> column);
+        void CumulativeSum(PrimitiveColumnContainer<T> column);
         void Max(PrimitiveColumnContainer<T> column, out T ret);
         void Min(PrimitiveColumnContainer<T> column, out T ret);
-        void Prod(PrimitiveColumnContainer<T> column, out T ret);
+        void Product(PrimitiveColumnContainer<T> column, out T ret);
         void Sum(PrimitiveColumnContainer<T> column, out T ret);
         void Round(PrimitiveColumnContainer<T> column);
     }
@@ -30,7 +30,7 @@ namespace Microsoft.Data
     internal static class PrimitiveColumnComputation<T>
         where T : struct
     {
-        public static IPrimitiveColumnComputation<T> Instance => PrimitiveColumnComputation.GetComputation<T>();
+        public static IPrimitiveColumnComputation<T> Instance { get; } = PrimitiveColumnComputation.GetComputation<T>();
     }
 
     internal static class PrimitiveColumnComputation
@@ -112,7 +112,7 @@ namespace Microsoft.Data
                     if (buffer.Span[i] == false)
                     {
                         ret = false;
-                        break;
+                        return;
                     }
                 }
             }
@@ -129,28 +129,28 @@ namespace Microsoft.Data
                     if (buffer.Span[i] == true)
                     {
                         ret = true;
-                        break;
+                        return;
                     }
                 }
             }
         }
 
-        public void Cummax(PrimitiveColumnContainer<bool> column)
+        public void CumulativeMax(PrimitiveColumnContainer<bool> column)
         {
             throw new NotSupportedException();
         }
 
-        public void Cummin(PrimitiveColumnContainer<bool> column)
+        public void CumulativeMin(PrimitiveColumnContainer<bool> column)
         {
             throw new NotSupportedException();
         }
 
-        public void Cumprod(PrimitiveColumnContainer<bool> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<bool> column)
         {
             throw new NotSupportedException();
         }
 
-        public void Cumsum(PrimitiveColumnContainer<bool> column)
+        public void CumulativeSum(PrimitiveColumnContainer<bool> column)
         {
             throw new NotSupportedException();
         }
@@ -165,7 +165,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Prod(PrimitiveColumnContainer<bool> column, out bool ret)
+        public void Product(PrimitiveColumnContainer<bool> column, out bool ret)
         {
             throw new NotSupportedException();
         }
@@ -205,7 +205,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<byte> column)
+        public void CumulativeMax(PrimitiveColumnContainer<byte> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -219,7 +219,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<byte> column)
+        public void CumulativeMin(PrimitiveColumnContainer<byte> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -233,7 +233,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<byte> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<byte> column)
         {
             var ret = (byte)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -247,7 +247,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<byte> column)
+        public void CumulativeSum(PrimitiveColumnContainer<byte> column)
         {
             var ret = (byte)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -287,7 +287,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<byte> column, out byte ret)
+        public void Product(PrimitiveColumnContainer<byte> column, out byte ret)
         {
             ret = (byte)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -350,7 +350,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<char> column)
+        public void CumulativeMax(PrimitiveColumnContainer<char> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -364,7 +364,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<char> column)
+        public void CumulativeMin(PrimitiveColumnContainer<char> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -378,7 +378,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<char> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<char> column)
         {
             var ret = (char)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -392,7 +392,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<char> column)
+        public void CumulativeSum(PrimitiveColumnContainer<char> column)
         {
             var ret = (char)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -432,7 +432,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<char> column, out char ret)
+        public void Product(PrimitiveColumnContainer<char> column, out char ret)
         {
             ret = (char)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -495,7 +495,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<decimal> column)
+        public void CumulativeMax(PrimitiveColumnContainer<decimal> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -509,7 +509,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<decimal> column)
+        public void CumulativeMin(PrimitiveColumnContainer<decimal> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -523,7 +523,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<decimal> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<decimal> column)
         {
             var ret = (decimal)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -537,7 +537,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<decimal> column)
+        public void CumulativeSum(PrimitiveColumnContainer<decimal> column)
         {
             var ret = (decimal)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -577,7 +577,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<decimal> column, out decimal ret)
+        public void Product(PrimitiveColumnContainer<decimal> column, out decimal ret)
         {
             ret = (decimal)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -640,7 +640,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<double> column)
+        public void CumulativeMax(PrimitiveColumnContainer<double> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -654,7 +654,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<double> column)
+        public void CumulativeMin(PrimitiveColumnContainer<double> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -668,7 +668,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<double> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<double> column)
         {
             var ret = (double)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -682,7 +682,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<double> column)
+        public void CumulativeSum(PrimitiveColumnContainer<double> column)
         {
             var ret = (double)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -722,7 +722,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<double> column, out double ret)
+        public void Product(PrimitiveColumnContainer<double> column, out double ret)
         {
             ret = (double)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -785,7 +785,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<float> column)
+        public void CumulativeMax(PrimitiveColumnContainer<float> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -799,7 +799,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<float> column)
+        public void CumulativeMin(PrimitiveColumnContainer<float> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -813,7 +813,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<float> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<float> column)
         {
             var ret = (float)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -827,7 +827,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<float> column)
+        public void CumulativeSum(PrimitiveColumnContainer<float> column)
         {
             var ret = (float)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -867,7 +867,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<float> column, out float ret)
+        public void Product(PrimitiveColumnContainer<float> column, out float ret)
         {
             ret = (float)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -930,7 +930,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<int> column)
+        public void CumulativeMax(PrimitiveColumnContainer<int> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -944,7 +944,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<int> column)
+        public void CumulativeMin(PrimitiveColumnContainer<int> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -958,7 +958,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<int> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<int> column)
         {
             var ret = (int)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -972,7 +972,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<int> column)
+        public void CumulativeSum(PrimitiveColumnContainer<int> column)
         {
             var ret = (int)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1012,7 +1012,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<int> column, out int ret)
+        public void Product(PrimitiveColumnContainer<int> column, out int ret)
         {
             ret = (int)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1075,7 +1075,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<long> column)
+        public void CumulativeMax(PrimitiveColumnContainer<long> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1089,7 +1089,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<long> column)
+        public void CumulativeMin(PrimitiveColumnContainer<long> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1103,7 +1103,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<long> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<long> column)
         {
             var ret = (long)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1117,7 +1117,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<long> column)
+        public void CumulativeSum(PrimitiveColumnContainer<long> column)
         {
             var ret = (long)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1157,7 +1157,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<long> column, out long ret)
+        public void Product(PrimitiveColumnContainer<long> column, out long ret)
         {
             ret = (long)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1220,7 +1220,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<sbyte> column)
+        public void CumulativeMax(PrimitiveColumnContainer<sbyte> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1234,7 +1234,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<sbyte> column)
+        public void CumulativeMin(PrimitiveColumnContainer<sbyte> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1248,7 +1248,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<sbyte> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<sbyte> column)
         {
             var ret = (sbyte)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1262,7 +1262,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<sbyte> column)
+        public void CumulativeSum(PrimitiveColumnContainer<sbyte> column)
         {
             var ret = (sbyte)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1302,7 +1302,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<sbyte> column, out sbyte ret)
+        public void Product(PrimitiveColumnContainer<sbyte> column, out sbyte ret)
         {
             ret = (sbyte)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1365,7 +1365,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<short> column)
+        public void CumulativeMax(PrimitiveColumnContainer<short> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1379,7 +1379,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<short> column)
+        public void CumulativeMin(PrimitiveColumnContainer<short> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1393,7 +1393,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<short> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<short> column)
         {
             var ret = (short)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1407,7 +1407,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<short> column)
+        public void CumulativeSum(PrimitiveColumnContainer<short> column)
         {
             var ret = (short)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1447,7 +1447,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<short> column, out short ret)
+        public void Product(PrimitiveColumnContainer<short> column, out short ret)
         {
             ret = (short)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1510,7 +1510,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<uint> column)
+        public void CumulativeMax(PrimitiveColumnContainer<uint> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1524,7 +1524,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<uint> column)
+        public void CumulativeMin(PrimitiveColumnContainer<uint> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1538,7 +1538,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<uint> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<uint> column)
         {
             var ret = (uint)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1552,7 +1552,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<uint> column)
+        public void CumulativeSum(PrimitiveColumnContainer<uint> column)
         {
             var ret = (uint)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1592,7 +1592,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<uint> column, out uint ret)
+        public void Product(PrimitiveColumnContainer<uint> column, out uint ret)
         {
             ret = (uint)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1655,7 +1655,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<ulong> column)
+        public void CumulativeMax(PrimitiveColumnContainer<ulong> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1669,7 +1669,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<ulong> column)
+        public void CumulativeMin(PrimitiveColumnContainer<ulong> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1683,7 +1683,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<ulong> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<ulong> column)
         {
             var ret = (ulong)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1697,7 +1697,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<ulong> column)
+        public void CumulativeSum(PrimitiveColumnContainer<ulong> column)
         {
             var ret = (ulong)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1737,7 +1737,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<ulong> column, out ulong ret)
+        public void Product(PrimitiveColumnContainer<ulong> column, out ulong ret)
         {
             ret = (ulong)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1800,7 +1800,7 @@ namespace Microsoft.Data
             throw new NotSupportedException();
         }
 
-        public void Cummax(PrimitiveColumnContainer<ushort> column)
+        public void CumulativeMax(PrimitiveColumnContainer<ushort> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1814,7 +1814,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cummin(PrimitiveColumnContainer<ushort> column)
+        public void CumulativeMin(PrimitiveColumnContainer<ushort> column)
         {
             var ret = column.Buffers[0].Span[0];
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1828,7 +1828,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumprod(PrimitiveColumnContainer<ushort> column)
+        public void CumulativeProduct(PrimitiveColumnContainer<ushort> column)
         {
             var ret = (ushort)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1842,7 +1842,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Cumsum(PrimitiveColumnContainer<ushort> column)
+        public void CumulativeSum(PrimitiveColumnContainer<ushort> column)
         {
             var ret = (ushort)0;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)
@@ -1882,7 +1882,7 @@ namespace Microsoft.Data
             }
         }
 
-        public void Prod(PrimitiveColumnContainer<ushort> column, out ushort ret)
+        public void Product(PrimitiveColumnContainer<ushort> column, out ushort ret)
         {
             ret = (ushort)1;
             for (int bb = 0 ; bb < column.Buffers.Count; bb++)

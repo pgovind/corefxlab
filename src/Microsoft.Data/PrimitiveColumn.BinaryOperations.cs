@@ -13,36 +13,35 @@ namespace Microsoft.Data
     public partial class PrimitiveColumn<T> : BaseColumn
         where T : unmanaged
     {
-        #region Binary Operations
         public override BaseColumn Add(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _Add(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _Add(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _Add(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _Add(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _Add(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _Add(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _Add(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _Add(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _Add(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _Add(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _Add(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _Add(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _Add(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -54,33 +53,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn Subtract(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _Subtract(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _Subtract(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _Subtract(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _Subtract(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _Subtract(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _Subtract(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _Subtract(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _Subtract(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _Subtract(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _Subtract(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _Subtract(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _Subtract(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _Subtract(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -92,33 +91,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn Multiply(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _Multiply(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _Multiply(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _Multiply(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _Multiply(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _Multiply(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _Multiply(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _Multiply(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _Multiply(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _Multiply(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _Multiply(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _Multiply(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _Multiply(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _Multiply(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -130,33 +129,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn Divide(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _Divide(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _Divide(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _Divide(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _Divide(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _Divide(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _Divide(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _Divide(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _Divide(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _Divide(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _Divide(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _Divide(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _Divide(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _Divide(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -168,33 +167,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn Modulo(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _Modulo(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _Modulo(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _Modulo(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _Modulo(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _Modulo(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _Modulo(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _Modulo(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _Modulo(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _Modulo(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _Modulo(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _Modulo(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _Modulo(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _Modulo(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -206,33 +205,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn And(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _And(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _And(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _And(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _And(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _And(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _And(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _And(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _And(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _And(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _And(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _And(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _And(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _And(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -244,33 +243,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn Or(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _Or(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _Or(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _Or(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _Or(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _Or(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _Or(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _Or(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _Or(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _Or(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _Or(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _Or(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _Or(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _Or(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -282,33 +281,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn Xor(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _Xor(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _Xor(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _Xor(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _Xor(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _Xor(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _Xor(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _Xor(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _Xor(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _Xor(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _Xor(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _Xor(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _Xor(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _Xor(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -328,33 +327,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn Equals(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _Equals(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _Equals(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _Equals(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _Equals(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _Equals(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _Equals(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _Equals(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _Equals(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _Equals(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _Equals(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _Equals(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _Equals(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _Equals(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -366,33 +365,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn NotEquals(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _NotEquals(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _NotEquals(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _NotEquals(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _NotEquals(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _NotEquals(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _NotEquals(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _NotEquals(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _NotEquals(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _NotEquals(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _NotEquals(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _NotEquals(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _NotEquals(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _NotEquals(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -404,33 +403,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn GreaterThanOrEqual(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _GreaterThanOrEqual(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -442,33 +441,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn LessThanOrEqual(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _LessThanOrEqual(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -480,33 +479,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn GreaterThan(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _GreaterThan(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _GreaterThan(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _GreaterThan(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _GreaterThan(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _GreaterThan(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _GreaterThan(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _GreaterThan(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _GreaterThan(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _GreaterThan(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _GreaterThan(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _GreaterThan(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _GreaterThan(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _GreaterThan(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -518,33 +517,33 @@ namespace Microsoft.Data
         }
         public override BaseColumn LessThan(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
-                case Type boolType when boolType == typeof(bool):
+                case PrimitiveColumn<bool> boolColumn:
                     return _LessThan(column as PrimitiveColumn<bool>);
-                case Type byteType when byteType == typeof(byte):
+                case PrimitiveColumn<byte> byteColumn:
                     return _LessThan(column as PrimitiveColumn<byte>);
-                case Type charType when charType == typeof(char):
+                case PrimitiveColumn<char> charColumn:
                     return _LessThan(column as PrimitiveColumn<char>);
-                case Type decimalType when decimalType == typeof(decimal):
+                case PrimitiveColumn<decimal> decimalColumn:
                     return _LessThan(column as PrimitiveColumn<decimal>);
-                case Type doubleType when doubleType == typeof(double):
+                case PrimitiveColumn<double> doubleColumn:
                     return _LessThan(column as PrimitiveColumn<double>);
-                case Type floatType when floatType == typeof(float):
+                case PrimitiveColumn<float> floatColumn:
                     return _LessThan(column as PrimitiveColumn<float>);
-                case Type intType when intType == typeof(int):
+                case PrimitiveColumn<int> intColumn:
                     return _LessThan(column as PrimitiveColumn<int>);
-                case Type longType when longType == typeof(long):
+                case PrimitiveColumn<long> longColumn:
                     return _LessThan(column as PrimitiveColumn<long>);
-                case Type sbyteType when sbyteType == typeof(sbyte):
+                case PrimitiveColumn<sbyte> sbyteColumn:
                     return _LessThan(column as PrimitiveColumn<sbyte>);
-                case Type shortType when shortType == typeof(short):
+                case PrimitiveColumn<short> shortColumn:
                     return _LessThan(column as PrimitiveColumn<short>);
-                case Type uintType when uintType == typeof(uint):
+                case PrimitiveColumn<uint> uintColumn:
                     return _LessThan(column as PrimitiveColumn<uint>);
-                case Type ulongType when ulongType == typeof(ulong):
+                case PrimitiveColumn<ulong> ulongColumn:
                     return _LessThan(column as PrimitiveColumn<ulong>);
-                case Type ushortType when ushortType == typeof(ushort):
+                case PrimitiveColumn<ushort> ushortColumn:
                     return _LessThan(column as PrimitiveColumn<ushort>);
                 default:
                     throw new NotSupportedException();
@@ -560,7 +559,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -700,7 +699,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -840,7 +839,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -980,7 +979,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -1120,7 +1119,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -1260,7 +1259,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -1322,7 +1321,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -1384,7 +1383,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -1568,7 +1567,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -1726,7 +1725,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -1884,7 +1883,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -2030,7 +2029,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -2176,7 +2175,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -2322,7 +2321,7 @@ namespace Microsoft.Data
         {
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             switch (typeof(T))
             {
@@ -2463,6 +2462,5 @@ namespace Microsoft.Data
                     throw new NotSupportedException();
             }
         }
-        #endregion
     }
 }

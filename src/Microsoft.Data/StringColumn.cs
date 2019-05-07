@@ -48,7 +48,7 @@ namespace Microsoft.Data
         {
             if (rowIndex > Length)
             {
-                throw new ArgumentOutOfRangeException($"Index {rowIndex} cannot be greater than the Column's Length {Length}");
+                throw new ArgumentOutOfRangeException(strings.ColumnIndexOutOfRange, nameof(rowIndex));
             }
             int curArrayIndex = 0;
             int numBuffers = _stringBuffers.Count;
@@ -151,7 +151,7 @@ namespace Microsoft.Data
             if (!(mapIndices is null))
             {
                 if (mapIndices.DataType != typeof(long)) throw new ArgumentException($"Expected sortIndices to be a PrimitiveColumn<long>");
-                if (mapIndices.Length != Length) throw new ArgumentException($"{nameof(mapIndices)} must be of length {Length}");
+                if (mapIndices.Length != Length) throw new ArgumentException(strings.MismatchedColumnLengths, nameof(mapIndices));
                 return _Clone(mapIndices as PrimitiveColumn<long>, invertMapIndices);
             }
             return _Clone();
@@ -177,7 +177,7 @@ namespace Microsoft.Data
             }
             else
             {
-                if (mapIndices.Length != Length) throw new ArgumentException("Length mismatch", nameof(mapIndices));
+                if (mapIndices.Length != Length) throw new ArgumentException(strings.MismatchedColumnLengths, nameof(mapIndices));
                 if (invertMapIndex == false)
                 {
                     for (long i = 0; i < mapIndices.Length; i++)

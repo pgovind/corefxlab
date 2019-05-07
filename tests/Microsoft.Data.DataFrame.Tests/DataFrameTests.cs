@@ -83,7 +83,7 @@ namespace Microsoft.Data.Tests
             var column = dataFrame["Int2"] as PrimitiveColumn<int>;
             Assert.Equal(1000, (int)column[2]);
 
-            Assert.Throws<System.ArgumentException>(() => dataFrame["Int5"]);
+            Assert.Throws<ArgumentException>(() => dataFrame["Int5"]);
         }
 
         [Fact]
@@ -103,9 +103,9 @@ namespace Microsoft.Data.Tests
             
             BaseColumn bigColumn = new PrimitiveColumn<float>("BigColumn", Enumerable.Range(0, 11).Select(x => (float)x));
             BaseColumn repeatedName = new PrimitiveColumn<float>("FloatColumn", Enumerable.Range(0, 10).Select(x => (float)x));
-            Assert.Throws<System.ArgumentException>( () => dataFrame.InsertColumn(2, bigColumn));
-            Assert.Throws<System.ArgumentException>( () => dataFrame.InsertColumn(2, repeatedName));
-            Assert.Throws<System.ArgumentException>( () => dataFrame.InsertColumn(10, repeatedName));
+            Assert.Throws<ArgumentException>( () => dataFrame.InsertColumn(2, bigColumn));
+            Assert.Throws<ArgumentException>( () => dataFrame.InsertColumn(2, repeatedName));
+            Assert.Throws<ArgumentOutOfRangeException>( () => dataFrame.InsertColumn(10, repeatedName));
 
             Assert.Equal(2, dataFrame.ColumnCount);
             BaseColumn intColumnCopy = new PrimitiveColumn<int>("IntColumn", Enumerable.Range(0, 10).Select(x => x));
@@ -359,22 +359,22 @@ namespace Microsoft.Data.Tests
             Assert.False(all);
 
             df["Double"][0] = 100.0;
-            df["Double"].Cummax();
+            df["Double"].CumulativeMax();
             Assert.Equal(100.0, df["Double"][9]);
 
             df["Float"][0] = -10.0f;
-            df["Float"].Cummin();
+            df["Float"].CumulativeMin();
             Assert.Equal(-10.0f, df["Float"][9]);
 
-            df["Uint"].Cumprod();
+            df["Uint"].CumulativeProduct();
             Assert.Equal((uint)0, df["Uint"][9]);
 
-            df["Ushort"].Cumsum();
+            df["Ushort"].CumulativeSum();
             Assert.Equal((ushort)45, df["Ushort"][9]);
 
             Assert.Equal(100.0, df["Double"].Max());
             Assert.Equal(-10.0f, df["Float"].Min());
-            Assert.Equal((uint)0, df["Uint"].Prod());
+            Assert.Equal((uint)0, df["Uint"].Product());
             Assert.Equal((ushort)165, df["Ushort"].Sum());
 
 

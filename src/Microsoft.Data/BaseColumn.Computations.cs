@@ -28,22 +28,22 @@ namespace Microsoft.Data
             throw new NotImplementedException();
         }
 
-        public virtual void Cummax()
+        public virtual void CumulativeMax()
         {
             throw new NotImplementedException();
         }
 
-        public virtual void Cummin()
+        public virtual void CumulativeMin()
         {
             throw new NotImplementedException();
         }
 
-        public virtual void Cumprod()
+        public virtual void CumulativeProduct()
         {
             throw new NotImplementedException();
         }
 
-        public virtual void Cumsum()
+        public virtual void CumulativeSum()
         {
             throw new NotImplementedException();
         }
@@ -58,7 +58,7 @@ namespace Microsoft.Data
             throw new NotImplementedException();
         }
 
-        public virtual object Prod()
+        public virtual object Product()
         {
             throw new NotImplementedException();
         }

@@ -99,7 +99,7 @@ namespace Microsoft.Data
         {
             if (rowIndex > Length)
             {
-                throw new ArgumentException($"Index {rowIndex} cannot be greater than the Column's Length {Length}");
+                throw new ArgumentOutOfRangeException(strings.ColumnIndexOutOfRange, nameof(rowIndex));
             }
             int curArrayIndex = 0;
             int numBuffers = Buffers.Count;

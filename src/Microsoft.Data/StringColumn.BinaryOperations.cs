@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -16,7 +17,7 @@ namespace Microsoft.Data
             // TODO: Using indexing is VERY inefficient here. Each indexer call will find the "right" buffer and then return the value
             if (Length != column.Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             StringColumn ret = _Clone();
             for (long i = 0; i < Length; i++)
@@ -47,7 +48,7 @@ namespace Microsoft.Data
             // TODO: Using indexing is VERY inefficient here. Each indexer call will find the "right" buffer and then return the value
             if (Length != column.Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>(Name, Length);
             for (long i = 0; i < Length; i++)
@@ -73,7 +74,7 @@ namespace Microsoft.Data
             // TODO: Using indexing is VERY inefficient here. Each indexer call will find the "right" buffer and then return the value
             if (Length != column.Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             PrimitiveColumn<bool> ret = new PrimitiveColumn<bool>(Name, Length);
             for (long i = 0; i < Length; i++)

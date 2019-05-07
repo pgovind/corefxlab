@@ -19,15 +19,14 @@ namespace Microsoft.Data
     public partial class PrimitiveColumn<T> : BaseColumn
         where T : unmanaged
     {
-        #region Binary Operations
 <# foreach (MethodConfiguration method in methodConfiguration) { #>
 <# if (method.MethodType == MethodType.Binary || method.MethodType == MethodType.Comparison) {#>
         public override BaseColumn <#=method.MethodName#>(BaseColumn column)
         {
-            switch (column.DataType)
+            switch (column)
             {
 <# foreach (TypeConfiguration type in typeConfiguration) { #>
-                case Type <#=type.TypeName#>Type when <#=type.TypeName#>Type == typeof(<#=type.TypeName#>):
+                case PrimitiveColumn<<#=type.TypeName#>> <#=type.TypeName#>Column:
                     return _<#=method.MethodName#>(column as PrimitiveColumn<<#=type.TypeName#>>);
 <# } #>
                 default:
@@ -66,7 +65,7 @@ namespace Microsoft.Data
 <# } else { #>
             if (column.Length != Length)
             {
-                throw new ArgumentException($"Column lengths are mismatched", nameof(column));
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
 <# } #>
 <# if (method.MethodType == MethodType.BinaryInt ) {#>
@@ -299,6 +298,5 @@ namespace Microsoft.Data
 <# } #>
         }
 <# } #>
-        #endregion
     }
 }

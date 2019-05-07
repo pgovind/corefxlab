@@ -30,21 +30,21 @@ namespace Microsoft.Data
             PrimitiveColumnComputation<T>.Instance.Any(_columnContainer, out bool ret);
             return ret;
         }
-        public override void Cummax()
+        public override void CumulativeMax()
         {
-            PrimitiveColumnComputation<T>.Instance.Cummax(_columnContainer);
+            PrimitiveColumnComputation<T>.Instance.CumulativeMax(_columnContainer);
         }
-        public override void Cummin()
+        public override void CumulativeMin()
         {
-            PrimitiveColumnComputation<T>.Instance.Cummin(_columnContainer);
+            PrimitiveColumnComputation<T>.Instance.CumulativeMin(_columnContainer);
         }
-        public override void Cumprod()
+        public override void CumulativeProduct()
         {
-            PrimitiveColumnComputation<T>.Instance.Cumprod(_columnContainer);
+            PrimitiveColumnComputation<T>.Instance.CumulativeProduct(_columnContainer);
         }
-        public override void Cumsum()
+        public override void CumulativeSum()
         {
-            PrimitiveColumnComputation<T>.Instance.Cumsum(_columnContainer);
+            PrimitiveColumnComputation<T>.Instance.CumulativeSum(_columnContainer);
         }
         public override object Max()
         {
@@ -56,9 +56,9 @@ namespace Microsoft.Data
             PrimitiveColumnComputation<T>.Instance.Min(_columnContainer, out T ret);
             return ret;
         }
-        public override object Prod()
+        public override object Product()
         {
-            PrimitiveColumnComputation<T>.Instance.Prod(_columnContainer, out T ret);
+            PrimitiveColumnComputation<T>.Instance.Product(_columnContainer, out T ret);
             return ret;
         }
         public override object Sum()

@@ -37,31 +37,37 @@ namespace Microsoft.Data
             {
                 if (startIndex > Length )
                 {
-                    throw new ArgumentException($"Indexer arguments exceed Length {Length} of the Column");
+                    throw new ArgumentOutOfRangeException(nameof(startIndex));
                 }
                 return _columnContainer[startIndex, length];
             }
         }
 
+        protected override object GetValue(long rowIndex)
+        {
+            return _columnContainer[rowIndex];
+        }
+
+        protected override void SetValue(long rowIndex, object value)
+        {
+            if (value.GetType() == typeof(T))
+            {
+                _columnContainer[rowIndex] = (T)value;
+            }
+            else
+            {
+                throw new ArgumentException(nameof(value));
+            }
+        }
+
         // This method involves boxing
-        public override object this[long rowIndex]
+        public new T this[long rowIndex]
         {
             get
             {
                 return _columnContainer[rowIndex];
             }
-            set
-            {
-                if (value.GetType() == typeof(T))
-                {
-                    _columnContainer[rowIndex] = (T)value;
-                }
-                else
-                {
-                    throw new ArgumentException(nameof(value));
-                }
-
-            }
+            set => SetValue(rowIndex, value);
         }
 
         public void Append(T value)
@@ -80,7 +86,7 @@ namespace Microsoft.Data
             if (!(mapIndices is null))
             {
                 if (mapIndices.DataType != typeof(long)) throw new ArgumentException($"Expected sortIndices to be a PrimitiveColumn<long>");
-                if (mapIndices.Length != Length) throw new ArgumentException($"{nameof(mapIndices)} must be of length {Length}");
+                if (mapIndices.Length != Length) throw new ArgumentException(strings.MismatchedColumnLengths, nameof(mapIndices));
                 return _Clone(mapIndices as PrimitiveColumn<long>, invertMapIndices);
             }
             return _Clone();

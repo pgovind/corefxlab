@@ -103,11 +103,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>BaseColumn.Computations.tt</DependentUpon>
     </Compile>
-    <Compile Update="ColumnArithmeticTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ColumnArithmeticTemplate.ttinclude</DependentUpon>
-    </Compile>
     <Compile Update="DataFrame.BinaryOperations.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -158,6 +153,19 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>PrimitiveColumnContainer.BinaryOperations.tt</DependentUpon>
     </Compile>
+    <Compile Update="strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Microsoft.Data</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -63,7 +63,7 @@ namespace Microsoft.Data
             column = column ?? throw new ArgumentNullException(nameof(column));
             if ((uint)columnIndex > _columns.Count)
             {
-                throw new ArgumentException($"Invalid columnIndex {columnIndex} passed into Table.AddColumn");
+                throw new ArgumentOutOfRangeException(nameof(columnIndex));
             }
             BaseColumn newColumn = new PrimitiveColumn<T>(columnName, column);
             InsertColumn(columnIndex, newColumn);
@@ -74,11 +74,11 @@ namespace Microsoft.Data
             column = column ?? throw new ArgumentNullException(nameof(column));
             if ((uint)columnIndex > _columns.Count)
             {
-                throw new ArgumentException($"Invalid columnIndex {columnIndex} passed into Table.AddColumn");
+                throw new ArgumentOutOfRangeException(nameof(columnIndex));
             }
             if (RowCount > 0 && column.Length != RowCount)
             {
-                throw new ArgumentException($"Column's length {column.Length} must match Table's length {RowCount}");
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             if (_columnNameToIndexDictionary.ContainsKey(column.Name))
             {
@@ -96,11 +96,11 @@ namespace Microsoft.Data
             column = column ?? throw new ArgumentNullException(nameof(column));
             if ((uint)columnIndex >= ColumnCount)
             {
-                throw new ArgumentException($"Invalid columnIndex {columnIndex} passed in to Table.SetColumn");
+                throw new ArgumentOutOfRangeException(nameof(columnIndex));
             }
             if (RowCount > 0 && column.Length != RowCount)
             {
-                throw new ArgumentException($"Column's length {column.Length} must match table's length {RowCount}");
+                throw new ArgumentException(strings.MismatchedColumnLengths, nameof(column));
             }
             if (_columnNameToIndexDictionary.ContainsKey(column.Name))
             {
