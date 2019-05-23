@@ -600,7 +600,14 @@ namespace Microsoft.Data.Tests
             sortedIntColumn = intColumn.Sort(false) as PrimitiveColumn<int>;
             Assert.Equal(4, sortedIntColumn[0]);
             Assert.Null(sortedIntColumn[9]);
+        }
 
+        [Fact]
+        public void TestJoin()
+        {
+            DataFrame left = MakeDataFrameWithAllColumnTypes(10);
+            DataFrame right = MakeDataFrameWithAllColumnTypes(5);
+            left.Join(right, "foo");
         }
     }
 }

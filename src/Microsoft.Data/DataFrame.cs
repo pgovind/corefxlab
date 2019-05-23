@@ -140,6 +140,45 @@ namespace Microsoft.Data
             return new DataFrame(newColumns);
         }
 
+        public enum JoinAlgorithm
+        {
+            LEFT,
+            RIGHT,
+            OUTER,
+            INNER
+        }
+
+        public DataFrame Join(DataFrame other, string columnName, JoinAlgorithm joinAlgorithm = JoinAlgorithm.LEFT)
+        {
+            DataFrame ret = Clone();
+            if (joinAlgorithm == JoinAlgorithm.LEFT)
+            {
+                long otherLength = Math.Min(other.RowCount, RowCount);
+                PrimitiveColumn<long> mapIndices = new PrimitiveColumn<long>("map", otherLength);
+                for (long i = 0; i < otherLength; i++)
+                {
+                    mapIndices[i] = i;
+                }
+                for (int i = 0; i < other.ColumnCount; i++)
+                {
+                    BaseColumn otherColumn = other.Column(i);
+                    BaseColumn newColumn;
+                    // if otherLength >= RowCount, cut off till RowCount
+                    // if otherLength < RowCount, append nulls till RowCount
+                    if (otherColumn.Length < RowCount)
+                    {
+                        newColumn = otherColumn.CloneAndAppendNulls(mapIndices);
+                    }
+                    else
+                    {
+                        newColumn = otherColumn.Clone(mapIndices);
+                    }
+                    ret.InsertColumn(ret.ColumnCount, newColumn);
+                }
+            }
+            return ret;
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
