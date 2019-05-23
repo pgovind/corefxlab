@@ -68,7 +68,7 @@ namespace Microsoft.Data
         /// <returns></returns>
         public virtual BaseColumn Clone(BaseColumn mapIndices = null, bool invertMapIndices = false) => throw new NotImplementedException();
 
-        internal virtual BaseColumn CloneAndAppendNulls(BaseColumn mapIndices = null, bool invertMapIndices = false) => throw new NotImplementedException();
+        internal virtual BaseColumn CloneAndAppendNulls(long numberOfNulls, BaseColumn mapIndices = null, bool invertMapIndices = false) => throw new NotImplementedException();
 
         public virtual BaseColumn Sort(bool ascending = true) => throw new NotImplementedException();
 

@@ -129,10 +129,10 @@ namespace Microsoft.Data
             return Clone();
         }
 
-        internal override BaseColumn CloneAndAppendNulls(BaseColumn mapIndices = null, bool invertMapIndices = false)
+        internal override BaseColumn CloneAndAppendNulls(long numberOfNulls, BaseColumn mapIndices = null, bool invertMapIndices = false)
         {
             PrimitiveColumn<T> ret = Clone(mapIndices, invertMapIndices) as PrimitiveColumn<T>;
-            for (long i = 0; i < NullCount; i++)
+            for (long i = 0; i < numberOfNulls; i++)
             {
                 ret.Append(null);
             }

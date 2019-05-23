@@ -133,7 +133,7 @@ namespace Microsoft.Data
             for (int i = 0; i < ColumnCount; i++)
             {
                 BaseColumn oldColumn = Column(i);
-                BaseColumn newColumn = oldColumn.CloneAndAppendNulls(sortIndices, !ascending);
+                BaseColumn newColumn = oldColumn.CloneAndAppendNulls(oldColumn.NullCount, sortIndices, !ascending);
                 Debug.Assert(newColumn.NullCount == oldColumn.NullCount);
                 newColumns.Add(newColumn);
             }
@@ -163,11 +163,10 @@ namespace Microsoft.Data
                 {
                     BaseColumn otherColumn = other.Column(i);
                     BaseColumn newColumn;
-                    // if otherLength >= RowCount, cut off till RowCount
                     // if otherLength < RowCount, append nulls till RowCount
                     if (otherColumn.Length < RowCount)
                     {
-                        newColumn = otherColumn.CloneAndAppendNulls(mapIndices);
+                        newColumn = otherColumn.CloneAndAppendNulls(RowCount - otherColumn.Length, mapIndices);
                     }
                     else
                     {
