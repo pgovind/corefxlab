@@ -117,6 +117,8 @@ namespace Microsoft.Data
             }
             lastBuffer.Append(value ?? default);
             SetBit(Length, value.HasValue ? true : false);
+            if (!value.HasValue)
+                NullCount++;
             Length++;
         }
 
@@ -144,24 +146,24 @@ namespace Microsoft.Data
             if (value)
             {
                 newBitMap = (byte)(curBitMap | (byte)(1 << (int)(index % 8)));
-                if ((curBitMap >> ((int)(index % 8)) & 1) == 0 && index < Length && NullCount > 0)
-                {
-                    // Old value was null.
-                    NullCount--;
-                }
+                //if ((curBitMap >> ((int)(index % 8)) & 1) == 0 && index < Length && NullCount > 0)
+                //{
+                //    // Old value was null.
+                //    NullCount--;
+                //}
             }
             else
             {
-                if ((curBitMap >> ((int)(index % 8)) & 1) == 1 && index < Length)
-                { 
-                    // old value was NOT null and new value is null
-                    NullCount++;
-                }
-                else if (index == Length)
-                {
-                    // New entry from an append
-                    NullCount++;
-                }
+                //if ((curBitMap >> ((int)(index % 8)) & 1) == 1 && index < Length)
+                //{ 
+                //    // old value was NOT null and new value is null
+                //    NullCount++;
+                //}
+                //else if (index == Length)
+                //{
+                //    // New entry from an append
+                //    NullCount++;
+                //}
                 newBitMap = (byte)(curBitMap & (byte)~(1 << (int)(index % 8)));
             }
             bitMapBuffer[bitMapBufferIndex] = newBitMap;
@@ -227,16 +229,23 @@ namespace Microsoft.Data
             }
             set
             {
+                // 2 scenarios that need to work:
+                // 1. Initialized the columnContainer with length, want to set an 'unset' value to null, should increase the NullCount
+                bool oldValueWasValid = GetBit(rowIndex);
                 int arrayIndex = GetArrayContainingRowIndex(ref rowIndex);
                 if (value.HasValue)
                 {
                     Buffers[arrayIndex][(int)rowIndex] = value.Value;
                     SetBit(rowIndex, true);
+                    if (oldValueWasValid == false && NullCount > 0)
+                        NullCount--;
                 }
                 else
                 {
                     Buffers[arrayIndex][(int)rowIndex] = default;
                     SetBit(rowIndex, false);
+                    if (oldValueWasValid == true)
+                        NullCount++;
                 }
             }
         }
@@ -296,6 +305,7 @@ namespace Microsoft.Data
                 }
             }
             ret.NullBitMapBuffers = CloneNullBitMapBuffers();
+            ret.NullCount = NullCount;
             return ret;
         }
 
@@ -312,6 +322,7 @@ namespace Microsoft.Data
                 ret.Length += buffer.Length;
             }
             ret.NullBitMapBuffers = CloneNullBitMapBuffers();
+            ret.NullCount = NullCount;
             return ret;
         }
 
@@ -331,6 +342,7 @@ namespace Microsoft.Data
                 }
             }
             ret.NullBitMapBuffers = CloneNullBitMapBuffers();
+            ret.NullCount = NullCount;
             return ret;
         }
 
@@ -350,6 +362,7 @@ namespace Microsoft.Data
                 }
             }
             ret.NullBitMapBuffers = CloneNullBitMapBuffers();
+            ret.NullCount = NullCount;
             return ret;
         }
     }

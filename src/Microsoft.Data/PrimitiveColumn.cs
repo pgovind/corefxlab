@@ -122,7 +122,7 @@ namespace Microsoft.Data
             {
                 if (mapIndices.DataType != typeof(long))
                     throw new ArgumentException(Strings.MismatchedValueType + " PrimitiveColumn<long>", nameof(mapIndices));
-                if (mapIndices.Length >= Length)
+                if (mapIndices.Length > Length)
                     throw new ArgumentException(Strings.MismatchedColumnLengths, nameof(mapIndices));
                 return Clone(mapIndices as PrimitiveColumn<long>, invertMapIndices);
             }
@@ -157,7 +157,10 @@ namespace Microsoft.Data
                 {
                     for (long i = 0; i < mapIndices.Length; i++)
                     {
-                        ret[i] = _columnContainer[mapIndices._columnContainer[i].Value].Value;
+                        T? value = _columnContainer[mapIndices._columnContainer[i].Value];
+                        ret[i] = value;
+                        //if (!value.HasValue)
+                        //    ret.NullCount += 1;
                     }
                 }
                 else
@@ -165,7 +168,10 @@ namespace Microsoft.Data
                     long mapIndicesIndex = mapIndices.Length - 1;
                     for (long i = 0; i < mapIndices.Length; i++)
                     {
-                        ret[i] = _columnContainer[mapIndices._columnContainer[mapIndicesIndex - i].Value].Value;
+                        T? value = _columnContainer[mapIndices._columnContainer[mapIndicesIndex - i].Value];
+                        ret[i] = value;
+                        //if (!value.HasValue)
+                        //    ret.NullCount += 1;
                     }
                 }
                 return ret;

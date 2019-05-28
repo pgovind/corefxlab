@@ -206,7 +206,7 @@ namespace Microsoft.Data
             {
                 if (mapIndices.DataType != typeof(long))
                     throw new ArgumentException(Strings.MismatchedValueType + " PrimitiveColumn<long>", nameof(mapIndices));
-                if (mapIndices.Length >= Length)
+                if (mapIndices.Length > Length)
                     throw new ArgumentException(Strings.MismatchedColumnLengths, nameof(mapIndices));
                 return Clone(mapIndices as PrimitiveColumn<long>, invertMapIndices);
             }
@@ -235,7 +235,7 @@ namespace Microsoft.Data
             }
             else
             {
-                if (mapIndices.Length >= Length)
+                if (mapIndices.Length > Length)
                     throw new ArgumentException(Strings.MismatchedColumnLengths, nameof(mapIndices));
                 if (invertMapIndex == false)
                 {
