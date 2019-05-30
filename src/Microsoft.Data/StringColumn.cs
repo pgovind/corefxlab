@@ -139,7 +139,7 @@ namespace Microsoft.Data
         public override BaseColumn Sort(bool ascending = true)
         {
             PrimitiveColumn<long> columnSortIndices = GetAscendingSortIndices() as PrimitiveColumn<long>;
-            return CloneAndAppendNulls((BaseColumn)columnSortIndices, !ascending);
+            return CloneAndAppendNulls(NullCount, (BaseColumn)columnSortIndices, !ascending);
         }
 
         internal override BaseColumn GetAscendingSortIndices()
@@ -214,10 +214,10 @@ namespace Microsoft.Data
             return Clone();
         }
 
-        public override BaseColumn CloneAndAppendNulls(BaseColumn mapIndices = null, bool invertMapIndices = false)
+        public override BaseColumn CloneAndAppendNulls(long numberOfNulls, BaseColumn mapIndices = null, bool invertMapIndices = false)
         {
             StringColumn ret = Clone(mapIndices, invertMapIndices) as StringColumn;
-            for (long i = 0; i < NullCount; i++)
+            for (long i = 0; i < numberOfNulls; i++)
             {
                 ret.Append(null);
             }
