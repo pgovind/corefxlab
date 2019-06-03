@@ -104,6 +104,32 @@ namespace Microsoft.Data
             }
         }
 
+        public void Resize(long length)
+        {
+            if (length < Length)
+                throw new ArgumentException(Strings.CannotResizeDown, nameof(length));
+            AppendMany(default, Length - length);
+            //if (Buffers.Count == 0)
+            //{
+            //    Buffers.Add(new DataFrameBuffer<T>());
+            //    NullBitMapBuffers.Add(new DataFrameBuffer<byte>());
+            //}
+            //DataFrameBuffer<T> lastBuffer = Buffers[Buffers.Count - 1];
+            //while (numberOfValues > 0)
+            //{
+            //    if (lastBuffer.Length == lastBuffer.MaxCapacity)
+            //    {
+            //        lastBuffer = new DataFrameBuffer<T>();
+            //        Buffers.Add(lastBuffer);
+            //        NullBitMapBuffers.Add(new DataFrameBuffer<byte>());
+            //    }
+            //    long newCapacity = lastBuffer.Length + numberOfValues;
+            //    int allocatableCapacity = (int)Math.Min(newCapacity, lastBuffer.MaxCapacity);
+            //    lastBuffer.EnsureCapacity(allocatableCapacity);
+            //    numberOfValues -= allocatableCapacity;
+            //}
+        }
+
         public void Append(T? value)
         {
             if (Buffers.Count == 0)

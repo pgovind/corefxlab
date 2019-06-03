@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Collections.Extensions;
 
 namespace Microsoft.Data
 {
@@ -87,6 +88,34 @@ namespace Microsoft.Data
                 {
                     throw new ArgumentException(Strings.MismatchedValueType + $" {DataType.ToString()}", nameof(value));
                 }
+            }
+        }
+
+        public override void Resize(long length) => _columnContainer.Resize(length);
+
+        internal override void Append<TKey>(TKey value)
+        {
+            if (value == null)
+            {
+                _columnContainer.Append(null);
+                Length++;
+                return;
+            }
+            if (typeof(T) == typeof(TKey))
+            {
+                _columnContainer.Append((T)(object)value);
+                Length++;
+                return;
+            }
+            object convertedVal = Convert.ChangeType(value, typeof(T));
+            if (convertedVal != null)
+            {
+                _columnContainer.Append((T)(object)value);
+                Length++;
+            }
+            else
+            {
+                throw new ArgumentException(Strings.MismatchedValueType, nameof(value));
             }
         }
 
@@ -195,6 +224,23 @@ namespace Microsoft.Data
         {
             PrimitiveColumnContainer<decimal> newColumnContainer = _columnContainer.CloneAsDecimalContainer();
             return new PrimitiveColumn<decimal>(Name, newColumnContainer);
+        }
+
+        public override MultiValueDictionary<TKey, long> HashColumnValues<TKey>()
+        {
+            if (typeof(TKey) == typeof(T))
+            {
+                MultiValueDictionary<T, long> multimap = new MultiValueDictionary<T, long>(EqualityComparer<T>.Default);
+                for (long i = 0; i < Length; i++)
+                {
+                    multimap.Add(this[i] ?? default, i);
+                }
+                return multimap as MultiValueDictionary<TKey, long>;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public void ApplyElementwise(Func<T, T> func)

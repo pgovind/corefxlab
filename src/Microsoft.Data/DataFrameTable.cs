@@ -57,6 +57,12 @@ namespace Microsoft.Data
             return ret;
         }
 
+        public void SetValueOnColumn(int columnIndex, object value, long rowIndex)
+        {
+            BaseColumn column = _columns[columnIndex];
+            column[rowIndex] = value;
+        }
+
         public void InsertColumn<T>(int columnIndex, IEnumerable<T> column, string columnName)
             where T : unmanaged
         {

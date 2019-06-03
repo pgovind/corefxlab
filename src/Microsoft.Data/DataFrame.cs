@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using Microsoft.Collections.Extensions;
 
 namespace Microsoft.Data
 {
@@ -247,6 +248,161 @@ namespace Microsoft.Data
                     newColumn.Name += rightSuffix;
                     ret.InsertColumn(ret.ColumnCount, newColumn);
                 }
+            }
+            return ret;
+        }
+
+        private void AppendForMerge(DataFrame dataFrameToAppendOn, DataFrame left, DataFrame right, long leftRow, long rightRow)
+        {
+            for (int i = 0; i < left.ColumnCount; i++)
+            {
+                BaseColumn leftColumn = left.Column(i);
+                BaseColumn column = dataFrameToAppendOn.Column(i);
+                if (leftRow == -1)
+                {
+                    column[]
+                }
+                appendColumn.Resize(1);
+                appendColumn
+                appendColumn.Append(leftRow == -1 ? null : leftColumn[leftRow]);
+            }
+            for (int i = 0; i < right.ColumnCount; i++)
+            {
+                BaseColumn rightColumn = right.Column(i);
+                BaseColumn appendColumn = dataFrameToAppendOn.Column(i + left.ColumnCount);
+                appendColumn.Resize(1);
+                appendColumn.Append(rightRow == -1 ? null : rightColumn[rightRow]);
+            }
+        }
+
+        /// <summary>
+        /// Merge DataFrames with a database style join
+        /// </summary>
+        /// <param name="other"></param>
+        /// <param name="leftJoinColumn"></param>
+        /// <param name="rightJoinColumn"></param>
+        /// <param name="leftSuffix"></param>
+        /// <param name="rightSuffix"></param>
+        /// <param name="joinAlgorithm"></param>
+        /// <returns></returns>
+        public DataFrame Merge<TKey>(DataFrame other, string leftJoinColumn, string rightJoinColumn, string leftSuffix = "_left", string rightSuffix = "_right", JoinAlgorithm joinAlgorithm = JoinAlgorithm.LEFT)
+        {
+            // A simple hash join
+            DataFrame ret = new DataFrame();
+            PrimitiveColumn<long> emptyMap = new PrimitiveColumn<long>("Empty");
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                // Create empty columns
+                BaseColumn column = Column(i).Clone(emptyMap);
+                column.Name += leftSuffix;
+                ret.InsertColumn(ret.ColumnCount, column);
+            }
+            for (int i = 0; i < other.ColumnCount; i++)
+            {
+                // Create empty columns
+                BaseColumn column = other.Column(i).Clone(emptyMap);
+                column.Name += rightSuffix;
+                ret.InsertColumn(ret.ColumnCount, column);
+            }
+            if (joinAlgorithm == JoinAlgorithm.LEFT)
+            {
+                // First hash other dataframe on the rightJoinColumn
+                BaseColumn otherColumn = other[rightJoinColumn];
+                MultiValueDictionary<TKey, long> multimap = otherColumn.HashColumnValues<TKey>();
+
+                // Go over the records in this dataframe and match with the hashtable
+                BaseColumn thisColumn = this[leftJoinColumn];
+                ret[thisColumn.Name + leftSuffix].Resize(thisColumn.Length);
+                for (long i = 0; i < thisColumn.Length; i++)
+                {
+                    TKey value = (TKey)(thisColumn[i] ?? default(TKey));
+                    if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
+                    {
+                        foreach (long row in rowNumbers)
+                        {
+                            AppendForMerge(ret, this, other, i, row);
+                        }
+                    }
+                    else
+                    {
+                        AppendForMerge(ret, this, other, i, -1);
+                    }
+                }
+            }
+            else if (joinAlgorithm == JoinAlgorithm.RIGHT)
+            {
+                BaseColumn thisColumn = this[leftJoinColumn];
+                MultiValueDictionary<TKey, long> multimap = thisColumn.HashColumnValues<TKey>();
+
+                BaseColumn otherColumn = other[rightJoinColumn];
+                for (long i = 0; i < otherColumn.Length; i++)
+                {
+                    TKey value = (TKey)otherColumn[i];
+                    if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
+                    {
+                        foreach (long row in rowNumbers)
+                        {
+                            AppendForMerge(ret, this, other, row, i);
+                        }
+                    }
+                    else
+                    {
+                        AppendForMerge(ret, this, other, -1, i);
+                    }
+                }
+            }
+            else if (joinAlgorithm == JoinAlgorithm.INNER)
+            {
+                // Hash the column with the smaller RowCount
+                long leftRowCount = RowCount;
+                long rightRowCount = other.RowCount;
+                BaseColumn hashColumn = (leftRowCount < rightRowCount) ? this[leftJoinColumn] : other[rightJoinColumn];
+                BaseColumn otherColumn = ReferenceEquals(hashColumn, this[leftJoinColumn]) ? other[rightJoinColumn] : this[leftJoinColumn];
+                MultiValueDictionary<TKey, long> multimap = hashColumn.HashColumnValues<TKey>();
+
+                for (long i = 0; i < otherColumn.Length; i++)
+                {
+                    TKey value = (TKey)otherColumn[i];
+                    if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
+                    {
+                        foreach (long row in rowNumbers)
+                        {
+                            AppendForMerge(ret, this, other, row, i);
+                        }
+                    }
+                }
+            }
+            else if (joinAlgorithm == JoinAlgorithm.OUTER)
+            {
+                BaseColumn otherColumn = other[rightJoinColumn];
+                MultiValueDictionary<TKey, long> multimap = otherColumn.HashColumnValues<TKey>();
+
+                // Go over the records in this dataframe and match with the hashtable
+                BaseColumn thisColumn = this[rightJoinColumn];
+                for (long i = 0; i < thisColumn.Length; i++)
+                {
+                    TKey value = (TKey)thisColumn[i];
+                    if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
+                    {
+                        foreach (long row in rowNumbers)
+                        {
+                            AppendForMerge(ret, this, other, i, row);
+                        }
+                    }
+                    else
+                    {
+                        AppendForMerge(ret, this, other, i, -1);
+                    }
+                }
+                for (long i = 0; i < otherColumn.Length; i++)
+                {
+                    TKey value = (TKey)otherColumn[i];
+                    if (!multimap.ContainsKey(value))
+                    {
+                        AppendForMerge(ret, this, other, -1, i);
+                    }
+                }
+
             }
             return ret;
         }
