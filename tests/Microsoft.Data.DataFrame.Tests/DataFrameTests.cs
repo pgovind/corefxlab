@@ -669,7 +669,7 @@ namespace Microsoft.Data.Tests
             // Tests with right.RowCount < left.RowCount
             // Left merge
             DataFrame merge = left.Merge<int>(right, "Int", "Int");
-            Assert.Equal(merge.RowCount, left.RowCount);
+            Assert.Equal(merge.RowCount, left.RowCount + 1);
             Assert.Equal(merge.ColumnCount, left.ColumnCount + right.ColumnCount);
             Assert.Null(merge["Int_right"][6]);
 

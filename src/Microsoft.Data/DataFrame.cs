@@ -252,26 +252,33 @@ namespace Microsoft.Data
             return ret;
         }
 
-        private void AppendForMerge(DataFrame dataFrameToAppendOn, DataFrame left, DataFrame right, long leftRow, long rightRow)
+        private void AppendForMerge(DataFrame dataFrame, long dataFrameRow, DataFrame left, DataFrame right, long leftRow, long rightRow)
         {
             for (int i = 0; i < left.ColumnCount; i++)
             {
                 BaseColumn leftColumn = left.Column(i);
-                BaseColumn column = dataFrameToAppendOn.Column(i);
+                BaseColumn column = dataFrame.Column(i);
                 if (leftRow == -1)
                 {
-                    column[]
+                    column[dataFrameRow] = null;
                 }
-                appendColumn.Resize(1);
-                appendColumn
-                appendColumn.Append(leftRow == -1 ? null : leftColumn[leftRow]);
+                else
+                {
+                    column[dataFrameRow] = leftColumn[leftRow];
+                }
             }
             for (int i = 0; i < right.ColumnCount; i++)
             {
                 BaseColumn rightColumn = right.Column(i);
-                BaseColumn appendColumn = dataFrameToAppendOn.Column(i + left.ColumnCount);
-                appendColumn.Resize(1);
-                appendColumn.Append(rightRow == -1 ? null : rightColumn[rightRow]);
+                BaseColumn column = dataFrame.Column(i + left.ColumnCount);
+                if (rightRow == -1)
+                {
+                    column[dataFrameRow] = null;
+                }
+                else
+                {
+                    column[dataFrameRow] = rightColumn[rightRow];
+                }
             }
         }
 
@@ -312,22 +319,38 @@ namespace Microsoft.Data
 
                 // Go over the records in this dataframe and match with the hashtable
                 BaseColumn thisColumn = this[leftJoinColumn];
-                ret[thisColumn.Name + leftSuffix].Resize(thisColumn.Length);
+                for (int c = 0; c < ret.ColumnCount; c++)
+                {
+                    ret.Column(c).Resize(thisColumn.Length + 1);
+                }
+                long rowNumber = 0;
                 for (long i = 0; i < thisColumn.Length; i++)
                 {
+                    if (i == 9)
+                    {
+                        int bh = -1;
+                    }
+                    if (rowNumber >= thisColumn.Length)
+                    {
+                        for (int c = 0; c < ret.ColumnCount; c++)
+                        {
+                            ret.Column(c).Resize(rowNumber + 1);
+                        }
+                    }
                     TKey value = (TKey)(thisColumn[i] ?? default(TKey));
                     if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
                     {
                         foreach (long row in rowNumbers)
                         {
-                            AppendForMerge(ret, this, other, i, row);
+                            AppendForMerge(ret, rowNumber++, this, other, i, row);
                         }
                     }
                     else
                     {
-                        AppendForMerge(ret, this, other, i, -1);
+                        AppendForMerge(ret, rowNumber++, this, other, i, -1);
                     }
                 }
+                ret._table.RowCount = rowNumber - 1;
             }
             else if (joinAlgorithm == JoinAlgorithm.RIGHT)
             {
@@ -335,19 +358,31 @@ namespace Microsoft.Data
                 MultiValueDictionary<TKey, long> multimap = thisColumn.HashColumnValues<TKey>();
 
                 BaseColumn otherColumn = other[rightJoinColumn];
+                for (int c = 0; c < ret.ColumnCount; c++)
+                {
+                    ret.Column(c).Resize(otherColumn.Length + 1);
+                }
+                long rowNumber = 0;
                 for (long i = 0; i < otherColumn.Length; i++)
                 {
+                    if (rowNumber >= otherColumn.Length)
+                    {
+                        for (int c = 0; c < ret.ColumnCount; c++)
+                        {
+                            ret.Column(c).Resize(otherColumn.Length + 1);
+                        }
+                    }
                     TKey value = (TKey)otherColumn[i];
                     if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
                     {
                         foreach (long row in rowNumbers)
                         {
-                            AppendForMerge(ret, this, other, row, i);
+                            AppendForMerge(ret, rowNumber++, this, other, row, i);
                         }
                     }
                     else
                     {
-                        AppendForMerge(ret, this, other, -1, i);
+                        AppendForMerge(ret, rowNumber++, this, other, -1, i);
                     }
                 }
             }
@@ -360,14 +395,22 @@ namespace Microsoft.Data
                 BaseColumn otherColumn = ReferenceEquals(hashColumn, this[leftJoinColumn]) ? other[rightJoinColumn] : this[leftJoinColumn];
                 MultiValueDictionary<TKey, long> multimap = hashColumn.HashColumnValues<TKey>();
 
+                long rowNumber = 0;
                 for (long i = 0; i < otherColumn.Length; i++)
                 {
+                    if (rowNumber >= otherColumn.Length)
+                    {
+                        for (int c = 0; c < ret.ColumnCount; c++)
+                        {
+                            ret.Column(c).Resize(otherColumn.Length + 1);
+                        }
+                    }
                     TKey value = (TKey)otherColumn[i];
                     if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
                     {
                         foreach (long row in rowNumbers)
                         {
-                            AppendForMerge(ret, this, other, row, i);
+                            AppendForMerge(ret, rowNumber++, this, other, row, i);
                         }
                     }
                 }
@@ -376,30 +419,52 @@ namespace Microsoft.Data
             {
                 BaseColumn otherColumn = other[rightJoinColumn];
                 MultiValueDictionary<TKey, long> multimap = otherColumn.HashColumnValues<TKey>();
+                MultiValueDictionary<TKey, long> intersection = new MultiValueDictionary<TKey, long>(EqualityComparer<TKey>.Default);
 
                 // Go over the records in this dataframe and match with the hashtable
                 BaseColumn thisColumn = this[rightJoinColumn];
+                //ret[thisColumn.Name + leftSuffix].Resize(thisColumn.Length);
+                for (int c = 0; c < ret.ColumnCount; c++)
+                {
+                    ret.Column(c).Resize(thisColumn.Length + 1);
+                }
+                long rowNumber = 0;
                 for (long i = 0; i < thisColumn.Length; i++)
                 {
+                    if (rowNumber >= thisColumn.Length)
+                    {
+                        for (int c = 0; c < ret.ColumnCount; c++)
+                        {
+                            ret.Column(c).Resize(thisColumn.Length + 1);
+                        }
+                    }
                     TKey value = (TKey)thisColumn[i];
                     if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
                     {
                         foreach (long row in rowNumbers)
                         {
-                            AppendForMerge(ret, this, other, i, row);
+                            AppendForMerge(ret, rowNumber++, this, other, i, row);
+                            intersection.Add(value, rowNumber);
                         }
                     }
                     else
                     {
-                        AppendForMerge(ret, this, other, i, -1);
+                        AppendForMerge(ret, rowNumber++, this, other, i, -1);
                     }
                 }
                 for (long i = 0; i < otherColumn.Length; i++)
                 {
                     TKey value = (TKey)otherColumn[i];
-                    if (!multimap.ContainsKey(value))
+                    if (!intersection.ContainsKey(value))
+                        if (rowNumber >= otherColumn.Length)
+                        {
+                            for (int c = 0; c < ret.ColumnCount; c++)
+                            {
+                                ret.Column(c).Resize(otherColumn.Length + 1);
+                            }
+                        }
                     {
-                        AppendForMerge(ret, this, other, -1, i);
+                        AppendForMerge(ret, rowNumber++, this, other, -1, i);
                     }
                 }
 

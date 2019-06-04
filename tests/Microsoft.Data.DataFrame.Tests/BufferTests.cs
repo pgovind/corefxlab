@@ -13,7 +13,7 @@ namespace Microsoft.Data.Tests
         public void TestNullCounts()
         {
             PrimitiveColumn<int> dataFrameColumn1 = new PrimitiveColumn<int>("Int1", Enumerable.Range(0, 10).Select(x => x));
-            dataFrameColumn1.Append<int?>(null);
+            dataFrameColumn1.Append(null);
             Assert.Equal(1, dataFrameColumn1.NullCount);
 
             PrimitiveColumn<int> df2 = new PrimitiveColumn<int>("Int2");
@@ -23,7 +23,7 @@ namespace Microsoft.Data.Tests
             Assert.Equal(0, df3.NullCount);
 
             // Test null counts with assignments on Primitive Columns
-            df2.Append<int?>(null);
+            df2.Append(null);
             df2.Append(1);
             Assert.Equal(1, df2.NullCount);
             df2[1] = 10;
@@ -66,7 +66,7 @@ namespace Microsoft.Data.Tests
         public void TestValidity()
         {
             PrimitiveColumn<int> dataFrameColumn1 = new PrimitiveColumn<int>("Int1", Enumerable.Range(0, 10).Select(x => x));
-            dataFrameColumn1.Append<int?>(null);
+            dataFrameColumn1.Append(null);
             Assert.False(dataFrameColumn1.IsValid(10));
             for (long i = 0; i < dataFrameColumn1.Length - 1; i++)
             {

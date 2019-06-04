@@ -91,7 +91,11 @@ namespace Microsoft.Data
             }
         }
 
-        public override void Resize(long length) => _columnContainer.Resize(length);
+        public override void Resize(long length)
+        {
+            _columnContainer.Resize(length);
+            Length = _columnContainer.Length;
+        }
 
         internal override void Append<TKey>(TKey value)
         {

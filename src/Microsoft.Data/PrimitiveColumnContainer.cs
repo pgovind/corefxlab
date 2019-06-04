@@ -108,7 +108,7 @@ namespace Microsoft.Data
         {
             if (length < Length)
                 throw new ArgumentException(Strings.CannotResizeDown, nameof(length));
-            AppendMany(default, Length - length);
+            AppendMany(default, length - Length);
             //if (Buffers.Count == 0)
             //{
             //    Buffers.Add(new DataFrameBuffer<T>());
