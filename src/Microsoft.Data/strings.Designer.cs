@@ -79,6 +79,24 @@ namespace Microsoft.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Empty file.
+        /// </summary>
+        public static string EmptyFile {
+            get {
+                return ResourceManager.GetString("EmptyFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line {0} has less columns than expected..
+        /// </summary>
+        public static string LessColumnsThatExpected {
+            get {
+                return ResourceManager.GetString("LessColumnsThatExpected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Column does not exist.
         /// </summary>
         public static string InvalidColumnName {
