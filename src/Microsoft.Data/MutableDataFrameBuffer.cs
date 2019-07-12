@@ -17,6 +17,10 @@ namespace Microsoft.Data
     public class MutableDataFrameBuffer<T> : DataFrameBuffer<T>
         where T : struct
     {
+        private Memory<byte> _memory;
+
+        public override ReadOnlyMemory<byte> Memory => _memory;
+
         public Memory<byte> MutableMemory
         {
             get => _memory;
@@ -30,13 +34,10 @@ namespace Microsoft.Data
 
         public MutableDataFrameBuffer(int numberOfValues = 8) : base(numberOfValues) { }
 
-        internal MutableDataFrameBuffer(ReadOnlyMemory<byte> buffer)
+        internal MutableDataFrameBuffer(ReadOnlyMemory<byte> buffer, int length) : base(buffer, length)
         {
-            _size = Unsafe.SizeOf<T>();
-            int capacity = buffer.Length / _size;
-            _memory = new byte[capacity];
+            _memory = new byte[buffer.Length];
             buffer.CopyTo(_memory);
-
         }
 
         public void Append(T value)
@@ -61,10 +62,9 @@ namespace Microsoft.Data
 
             if (newLength > Capacity)
             {
-                var newCapacity = Math.Max(newLength * _size, Memory.Length * 2);
+                var newCapacity = Math.Max(newLength * Size, Memory.Length * 2);
                 var memory = new Memory<byte>(new byte[newCapacity]);
-                Memory.CopyTo(memory);
-                _memory = memory;
+                _memory.CopyTo(memory);
             }
         }
 
@@ -83,7 +83,7 @@ namespace Microsoft.Data
             MutableDataFrameBuffer<T> mutableBuffer = buffer as MutableDataFrameBuffer<T>;
             if (ReferenceEquals(mutableBuffer, null))
             {
-                mutableBuffer = new MutableDataFrameBuffer<T>(buffer.Memory);
+                mutableBuffer = new MutableDataFrameBuffer<T>(buffer.Memory, buffer.Length);
                 mutableBuffer.Length = buffer.Length;
             }
             return mutableBuffer;

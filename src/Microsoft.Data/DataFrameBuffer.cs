@@ -19,14 +19,28 @@ namespace Microsoft.Data
     {
         // TODO: Change this to Memory<T>
 
-        protected Memory<byte> _memory;
-        public ReadOnlyMemory<byte> Memory => _memory;
+        private ReadOnlyMemory<byte> _readOnlyMemory;
+        //public virtual ReadOnlyMemory<byte> Memory
+        //{
+        //    get => _readOnlyMemory;
+        //    internal set => throw new NotSupportedException();
+        //}
 
-        protected int _size;
+        public virtual ReadOnlyMemory<byte> Memory => _readOnlyMemory;
 
-        protected int Capacity => Memory.Length / _size;
+        protected static int Size = Unsafe.SizeOf<T>();
 
-        public int MaxCapacity => Int32.MaxValue / _size;
+        protected int Capacity => Memory.Length / Size;
+
+        public static int MaxBufferCapacity
+        {
+            get
+            {
+                return Int32.MaxValue / Size;
+            }
+        }
+
+        public int MaxCapacity => Int32.MaxValue / Size;
 
         public ReadOnlySpan<T> ReadOnlySpan
         {
@@ -38,12 +52,19 @@ namespace Microsoft.Data
 
         public DataFrameBuffer(int numberOfValues = 8)
         {
-            _size = Unsafe.SizeOf<T>();
-            if ((long)numberOfValues * _size > MaxCapacity)
+            Size = Unsafe.SizeOf<T>();
+            if ((long)numberOfValues * Size > MaxCapacity)
             {
                 throw new ArgumentException($"{numberOfValues} exceeds buffer capacity", nameof(numberOfValues));
             }
-            _memory = new byte[numberOfValues * _size];
+            _readOnlyMemory = new byte[numberOfValues * Size];
+        }
+
+        public DataFrameBuffer(ReadOnlyMemory<byte> buffer, int length)
+        {
+            Size = Unsafe.SizeOf<T>();
+            _readOnlyMemory = buffer;
+            Length = length;
         }
 
         internal virtual T this[int index]

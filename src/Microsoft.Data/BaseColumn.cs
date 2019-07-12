@@ -3,10 +3,10 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Apache.Arrow;
 
 namespace Microsoft.Data
 {
@@ -77,6 +77,14 @@ namespace Microsoft.Data
         public virtual BaseColumn Sort(bool ascending = true) => throw new NotImplementedException();
 
         public virtual Dictionary<TKey, ICollection<long>> HashColumnValues<TKey>() => throw new NotImplementedException();
+
+        // Arrow related APIs
+        public virtual Field Field => throw new NotImplementedException();
+        /// <summary>
+        /// Returns the max number of values that are contiguous in memory
+        /// </summary>
+        public virtual int MaxRecordBatchLength(long startIndex) => 1;
+        public virtual Apache.Arrow.Array AsArrowArray(long startIndex, int numberOfRows) => throw new NotImplementedException();
 
         internal virtual BaseColumn GetAscendingSortIndices() => throw new NotImplementedException();
 

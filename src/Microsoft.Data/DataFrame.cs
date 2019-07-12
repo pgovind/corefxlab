@@ -6,7 +6,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
+using Apache.Arrow;
+using Apache.Arrow.Types;
 
 namespace Microsoft.Data
 {
@@ -32,6 +35,118 @@ namespace Microsoft.Data
         public DataFrame(IList<BaseColumn> columns)
         {
             _table = new DataFrameTable(columns);
+        }
+
+        public DataFrame(RecordBatch recordBatch)
+        {
+            _table = new DataFrameTable();
+            Apache.Arrow.Schema arrowSchema = recordBatch.Schema;
+            int fieldIndex = 0;
+            IEnumerable<IArrowArray> arrowArrays = recordBatch.Arrays;
+            foreach (IArrowArray arrowArray in arrowArrays)
+            {
+                Field field = arrowSchema.GetFieldByIndex(fieldIndex);
+                IArrowType fieldType = field.DataType;
+                BaseColumn dataFrameColumn = null;
+                switch (fieldType.TypeId)
+                {
+                    case ArrowTypeId.Boolean:
+                        ReadOnlyMemory<byte> valueBuffer = (arrowArray as BooleanArray).ValueBuffer.Memory;
+                        ReadOnlyMemory<byte> nullBitMapBuffer = (arrowArray as BooleanArray).NullBitmapBuffer.Memory;
+                        dataFrameColumn = new PrimitiveColumn<bool>(field.Name, valueBuffer, nullBitMapBuffer, arrowArray.Length, arrowArray.NullCount);
+                        break;
+                    case ArrowTypeId.Decimal:
+                        ReadOnlyMemory<byte> decimalValueBuffer = (arrowArray as PrimitiveArray<decimal>).ValueBuffer.Memory;
+                        ReadOnlyMemory<byte> decimalNullBitMapBuffer = (arrowArray as PrimitiveArray<decimal>).NullBitmapBuffer.Memory;
+                        dataFrameColumn = new PrimitiveColumn<decimal>(field.Name, decimalValueBuffer, decimalNullBitMapBuffer, arrowArray.Length, arrowArray.NullCount);
+                        break;
+                    case ArrowTypeId.Double:
+                        ReadOnlyMemory<byte> doubleValueBuffer = (arrowArray as PrimitiveArray<double>).ValueBuffer.Memory;
+                        ReadOnlyMemory<byte> doubleNullBitMapBuffer = (arrowArray as PrimitiveArray<double>).NullBitmapBuffer.Memory;
+                        dataFrameColumn = new PrimitiveColumn<double>(field.Name, doubleValueBuffer, doubleNullBitMapBuffer, arrowArray.Length, arrowArray.NullCount);
+                        break;
+                    case ArrowTypeId.Float:
+                        ReadOnlyMemory<byte> floatValueBuffer = (arrowArray as PrimitiveArray<float>).ValueBuffer.Memory;
+                        ReadOnlyMemory<byte> floatNullBitMapBuffer = (arrowArray as PrimitiveArray<float>).NullBitmapBuffer.Memory;
+                        dataFrameColumn = new PrimitiveColumn<float>(field.Name, floatValueBuffer, floatNullBitMapBuffer, arrowArray.Length, arrowArray.NullCount);
+                        break;
+                    case ArrowTypeId.Int8:
+                    case ArrowTypeId.Int16:
+                    case ArrowTypeId.Int32:
+                        ReadOnlyMemory<byte> intValueBuffer = (arrowArray as PrimitiveArray<int>).ValueBuffer.Memory;
+                        ReadOnlyMemory<byte> intNullBitMapBuffer = (arrowArray as PrimitiveArray<int>).NullBitmapBuffer.Memory;
+                        dataFrameColumn = new PrimitiveColumn<int>(field.Name, intValueBuffer, intNullBitMapBuffer, arrowArray.Length, arrowArray.NullCount);
+                        break;
+                    case ArrowTypeId.Int64:
+                        ReadOnlyMemory<byte> longValueBuffer = (arrowArray as PrimitiveArray<long>).ValueBuffer.Memory;
+                        ReadOnlyMemory<byte> longNullBitMapBuffer = (arrowArray as PrimitiveArray<long>).NullBitmapBuffer.Memory;
+                        dataFrameColumn = new PrimitiveColumn<long>(field.Name, longValueBuffer, longNullBitMapBuffer, arrowArray.Length, arrowArray.NullCount);
+                        break;
+                    case ArrowTypeId.UInt8:
+                    case ArrowTypeId.UInt16:
+                    case ArrowTypeId.UInt32:
+                        ReadOnlyMemory<byte> uintValueBuffer = (arrowArray as PrimitiveArray<uint>).ValueBuffer.Memory;
+                        ReadOnlyMemory<byte> uintNullBitMapBuffer = (arrowArray as PrimitiveArray<uint>).NullBitmapBuffer.Memory;
+                        dataFrameColumn = new PrimitiveColumn<uint>(field.Name, uintValueBuffer, uintNullBitMapBuffer, arrowArray.Length, arrowArray.NullCount);
+                        break;
+                    case ArrowTypeId.UInt64:
+                        ReadOnlyMemory<byte> ulongValueBuffer = (arrowArray as PrimitiveArray<ulong>).ValueBuffer.Memory;
+                        ReadOnlyMemory<byte> ulongNullBitMapBuffer = (arrowArray as PrimitiveArray<ulong>).NullBitmapBuffer.Memory;
+                        dataFrameColumn = new PrimitiveColumn<ulong>(field.Name, ulongValueBuffer, ulongNullBitMapBuffer, arrowArray.Length, arrowArray.NullCount);
+                        break;
+                    case ArrowTypeId.Binary:
+                    case ArrowTypeId.Date32:
+                    case ArrowTypeId.Date64:
+                    case ArrowTypeId.Dictionary:
+                    case ArrowTypeId.FixedSizedBinary:
+                    case ArrowTypeId.HalfFloat:
+                    case ArrowTypeId.Interval:
+                    case ArrowTypeId.List:
+                    case ArrowTypeId.Map:
+                    case ArrowTypeId.Null:
+                    case ArrowTypeId.Struct:
+                    case ArrowTypeId.Time32:
+                    case ArrowTypeId.Time64:
+                        throw new NotImplementedException(nameof(fieldType.Name));
+                }
+                _table.InsertColumn(ColumnCount, dataFrameColumn);
+                fieldIndex++;
+            }
+        }
+
+        public IEnumerable<RecordBatch> AsArrowRecordBatches()
+        {
+            Apache.Arrow.Schema.Builder schemaBuilder = new Apache.Arrow.Schema.Builder();
+
+            int recordBatchLength = Int32.MaxValue;
+            int columnCount = ColumnCount;
+            for (int i = 0; i < columnCount; i++)
+            {
+                BaseColumn column = Column(i);
+                Field field = column.Field;
+                schemaBuilder.Field(field);
+            }
+
+            Schema schema = schemaBuilder.Build();
+            List<Apache.Arrow.Array> arrays = new List<Apache.Arrow.Array>();
+
+            long numberOfRowsProcessed = 0;
+            int numberOfRowsInThisRecordBatch = (int)Math.Min(recordBatchLength, RowCount);
+            while (numberOfRowsProcessed < RowCount)
+            {
+                for (int i = 0; i < columnCount; i++)
+                {
+                    BaseColumn column = Column(i);
+                    numberOfRowsInThisRecordBatch = (int)Math.Min(numberOfRowsInThisRecordBatch, column.MaxRecordBatchLength(numberOfRowsProcessed));
+                }
+                for (int i = 0; i < columnCount; i++)
+                {
+                    BaseColumn column = Column(i);
+                    arrays.Add(column.AsArrowArray(numberOfRowsProcessed, numberOfRowsInThisRecordBatch));
+                }
+                numberOfRowsProcessed += numberOfRowsInThisRecordBatch;
+                yield return new RecordBatch(schema, arrays, numberOfRowsInThisRecordBatch);
+            }
         }
 
         public long RowCount => _table.RowCount;

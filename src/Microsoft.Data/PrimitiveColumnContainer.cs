@@ -77,6 +77,14 @@ namespace Microsoft.Data
             }
         }
 
+        public PrimitiveColumnContainer(ReadOnlyMemory<byte> buffer, ReadOnlyMemory<byte> nullBitMap, int length, int nullCount)
+        {
+            Buffers.Add(new DataFrameBuffer<T>(buffer, length));
+            NullBitMapBuffers.Add(new DataFrameBuffer<byte>(nullBitMap, length));
+            Length = length;
+            NullCount = nullCount;
+        }
+
         public PrimitiveColumnContainer(long length = 0)
         {
             while (length > 0)
@@ -128,7 +136,7 @@ namespace Microsoft.Data
             MutableDataFrameBuffer<T> mutableLastBuffer = lastBuffer as MutableDataFrameBuffer<T>;
             if (ReferenceEquals(mutableLastBuffer, null))
             {
-                mutableLastBuffer = new MutableDataFrameBuffer<T>(lastBuffer.Memory);
+                mutableLastBuffer = new MutableDataFrameBuffer<T>(lastBuffer.Memory, lastBuffer.Length);
                 mutableLastBuffer.Length = lastBuffer.Length;
             }
             mutableLastBuffer.Append(value ?? default);
@@ -160,7 +168,7 @@ namespace Microsoft.Data
                 MutableDataFrameBuffer<T> mutableLastBuffer = lastBuffer as MutableDataFrameBuffer<T>;
                 if (ReferenceEquals(mutableLastBuffer, null))
                 {
-                    mutableLastBuffer = new MutableDataFrameBuffer<T>(lastBuffer.Memory);
+                    mutableLastBuffer = new MutableDataFrameBuffer<T>(lastBuffer.Memory, lastBuffer.Length);
                     mutableLastBuffer.Length = lastBuffer.Length;
                 }
                 int allocatable = (int)Math.Min(count, lastBuffer.MaxCapacity);
@@ -173,7 +181,7 @@ namespace Microsoft.Data
                 MutableDataFrameBuffer<byte> mutableLastNullBitMapBuffer = lastNullBitMapBuffer as MutableDataFrameBuffer<byte>;
                 if (ReferenceEquals(mutableLastNullBitMapBuffer, null))
                 {
-                    mutableLastNullBitMapBuffer = new MutableDataFrameBuffer<byte>(lastBuffer.Memory);
+                    mutableLastNullBitMapBuffer = new MutableDataFrameBuffer<byte>(lastBuffer.Memory, lastBuffer.Length);
                     mutableLastNullBitMapBuffer.Length = lastBuffer.Length;
                 }
                 int nullBitMapAllocatable = (int)(((uint)allocatable + 7) / 8);
@@ -264,13 +272,32 @@ namespace Microsoft.Data
         public long Length;
 
         public long NullCount;
-        private int GetArrayContainingRowIndex(ref long rowIndex)
+        public int GetArrayContainingRowIndex(long rowIndex)
         {
             if (rowIndex > Length)
             {
                 throw new ArgumentOutOfRangeException(Strings.ColumnIndexOutOfRange, nameof(rowIndex));
             }
             return (int)(rowIndex / Buffers[0].MaxCapacity);
+        }
+
+        internal int MaxRecordBatchLength(long startIndex)
+        {
+            int arrayIndex = GetArrayContainingRowIndex(startIndex);
+            startIndex = startIndex - arrayIndex * DataFrameBuffer<T>.MaxBufferCapacity;
+            return Buffers[arrayIndex].Length - (int)startIndex;
+        }
+
+        internal ReadOnlyMemory<byte> GetValueBuffer(long startIndex)
+        {
+            int arrayIndex = GetArrayContainingRowIndex(startIndex);
+            return Buffers[arrayIndex].Memory;
+        }
+
+        internal ReadOnlyMemory<byte> GetNullBuffer(long startIndex)
+        {
+            int arrayIndex = GetArrayContainingRowIndex(startIndex);
+            return Buffers[arrayIndex].Memory;
         }
 
         public IList<T?> this[long startIndex, int length]
@@ -295,17 +322,19 @@ namespace Microsoft.Data
                 {
                     return null;
                 }
-                int arrayIndex = GetArrayContainingRowIndex(ref rowIndex);
+                int arrayIndex = GetArrayContainingRowIndex(rowIndex);
+                rowIndex = rowIndex - arrayIndex * DataFrameBuffer<T>.MaxBufferCapacity;
                 return Buffers[arrayIndex][(int)rowIndex];
             }
             set
             {
-                int arrayIndex = GetArrayContainingRowIndex(ref rowIndex);
+                int arrayIndex = GetArrayContainingRowIndex(rowIndex);
+                rowIndex = rowIndex - arrayIndex * DataFrameBuffer<T>.MaxBufferCapacity;
                 DataFrameBuffer<T> buffer = Buffers[arrayIndex];
                 MutableDataFrameBuffer<T> mutableBuffer = buffer as MutableDataFrameBuffer<T>;
                 if (ReferenceEquals(mutableBuffer, null))
                 {
-                    mutableBuffer = new MutableDataFrameBuffer<T>(buffer.Memory);
+                    mutableBuffer = new MutableDataFrameBuffer<T>(buffer.Memory, buffer.Length);
                     mutableBuffer.Length = buffer.Length;
                     Buffers[arrayIndex] = mutableBuffer;
                 }
