@@ -941,5 +941,17 @@ namespace Microsoft.Data.Tests
             GroupCountAndAssert(df);
 
         }
+
+        [Fact]
+        public void TestClip()
+        {
+            DataFrame df = MakeDataFrameWithNumericColumns(10);
+            BaseColumn clipped = df["Int"].Clip(3, 7);
+            Assert.Equal(3, clipped[0]);
+            Assert.Equal(3, clipped[1]);
+            Assert.Equal(3, clipped[2]);
+            Assert.Equal(3, clipped[8]);
+            Assert.Equal(3, clipped[9]);
+        }
     }
 }
