@@ -354,7 +354,6 @@ namespace Microsoft.Data
 
         private ValueGetter<double> CreateDecimalValueGetterDelegate(DataViewRowCursor cursor) =>
             (ref double value) => value = (double)Convert.ChangeType(this[cursor.Position].Value, typeof(double));
-        }
 
         public IEnumerator<T> GetEnumerator() => _columnContainer.GetEnumerator();
 

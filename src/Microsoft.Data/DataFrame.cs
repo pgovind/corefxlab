@@ -334,7 +334,7 @@ namespace Microsoft.Data
             {
                 // First hash other dataframe on the rightJoinColumn
                 BaseColumn otherColumn = other[rightJoinColumn];
-                MultiValueDictionary<TKey, long> multimap = otherColumn.HashColumnValues<TKey>();
+                Dictionary<TKey, ICollection<long>> multimap = otherColumn.GroupColumnValues<TKey>();
 
                 // Go over the records in this dataframe and match with the hashtable
                 BaseColumn thisColumn = this[leftJoinColumn];
@@ -353,7 +353,7 @@ namespace Microsoft.Data
                         }
                     }
                     TKey value = (TKey)(thisColumn[i] ?? default(TKey));
-                    if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
+                    if (multimap.TryGetValue(value, out ICollection<long> rowNumbers))
                     {
                         foreach (long row in rowNumbers)
                         {
@@ -385,7 +385,7 @@ namespace Microsoft.Data
             else if (joinAlgorithm == JoinAlgorithm.Right)
             {
                 BaseColumn thisColumn = this[leftJoinColumn];
-                MultiValueDictionary<TKey, long> multimap = thisColumn.HashColumnValues<TKey>();
+                Dictionary<TKey, ICollection<long>> multimap = thisColumn.GroupColumnValues<TKey>();
 
                 BaseColumn otherColumn = other[rightJoinColumn];
                 for (int c = 0; c < ret.ColumnCount; c++)
@@ -403,7 +403,7 @@ namespace Microsoft.Data
                         }
                     }
                     TKey value = (TKey)(otherColumn[i] ?? default(TKey));
-                    if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
+                    if (multimap.TryGetValue(value, out ICollection<long> rowNumbers))
                     {
                         foreach (long row in rowNumbers)
                         {
@@ -439,7 +439,7 @@ namespace Microsoft.Data
                 DataFrame shorterDataFrame = ReferenceEquals(longerDataFrame, this) ? other : this;
                 BaseColumn hashColumn = (leftRowCount < rightRowCount) ? this[leftJoinColumn] : other[rightJoinColumn];
                 BaseColumn otherColumn = ReferenceEquals(hashColumn, this[leftJoinColumn]) ? other[rightJoinColumn] : this[leftJoinColumn];
-                MultiValueDictionary<TKey, long> multimap = hashColumn.HashColumnValues<TKey>();
+                Dictionary<TKey, ICollection<long>> multimap = hashColumn.GroupColumnValues<TKey>();
 
                 for (int c = 0; c < ret.ColumnCount; c++)
                 {
@@ -456,7 +456,7 @@ namespace Microsoft.Data
                         }
                     }
                     TKey value = (TKey)(otherColumn[i] ?? default(TKey));
-                    if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
+                    if (multimap.TryGetValue(value, out ICollection<long> rowNumbers))
                     {
                         foreach (long row in rowNumbers)
                         {
@@ -482,8 +482,8 @@ namespace Microsoft.Data
             else if (joinAlgorithm == JoinAlgorithm.FullOuter)
             {
                 BaseColumn otherColumn = other[rightJoinColumn];
-                MultiValueDictionary<TKey, long> multimap = otherColumn.HashColumnValues<TKey>();
-                MultiValueDictionary<TKey, long> intersection = new MultiValueDictionary<TKey, long>(EqualityComparer<TKey>.Default);
+                Dictionary<TKey, ICollection<long>> multimap = otherColumn.GroupColumnValues<TKey>();
+                Dictionary<TKey, ICollection<long>> intersection = new Dictionary<TKey, ICollection<long>>(EqualityComparer<TKey>.Default);
 
                 // Go over the records in this dataframe and match with the hashtable
                 BaseColumn thisColumn = this[rightJoinColumn];
@@ -502,7 +502,7 @@ namespace Microsoft.Data
                         }
                     }
                     TKey value = (TKey)(thisColumn[i] ?? default(TKey));
-                    if (multimap.TryGetValue(value, out IReadOnlyCollection<long> rowNumbers))
+                    if (multimap.TryGetValue(value, out ICollection<long> rowNumbers))
                     {
                         foreach (long row in rowNumbers)
                         {
@@ -512,7 +512,16 @@ namespace Microsoft.Data
                                 if (otherColumn[row] == null)
                                 {
                                     AppendForMerge(ret, rowNumber++, this, other, i, row);
-                                    intersection.Add(value, rowNumber);
+                                    if (intersection.TryGetValue(value, out ICollection<long> currentRows))
+                                    {
+                                        currentRows.Add(rowNumber);
+                                    }
+                                    else
+                                    {
+                                        var newRows = new List<long>();
+                                        newRows.Add(rowNumber);
+                                        intersection.Add(value, newRows);
+                                    }
                                 }
                             }
                             else
@@ -521,7 +530,16 @@ namespace Microsoft.Data
                                 if (otherColumn[row] != null)
                                 {
                                     AppendForMerge(ret, rowNumber++, this, other, i, row);
-                                    intersection.Add(value, rowNumber);
+                                    if (intersection.TryGetValue(value, out ICollection<long> currentRows))
+                                    {
+                                        currentRows.Add(rowNumber);
+                                    }
+                                    else
+                                    {
+                                        var newRows = new List<long>();
+                                        newRows.Add(rowNumber);
+                                        intersection.Add(value, newRows);
+                                    }
                                 }
                             }
                         }
