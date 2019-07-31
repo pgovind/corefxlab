@@ -3,8 +3,10 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Apache.Arrow;
 using Xunit;
 
 namespace Microsoft.Data.Tests
@@ -47,13 +49,15 @@ namespace Microsoft.Data.Tests
             BaseColumn stringColumn = new StringColumn("String", Enumerable.Range(0, length).Select(x => x.ToString()));
             df.InsertColumn(df.ColumnCount, stringColumn);
             stringColumn[length / 2] = null;
+            BaseColumn charColumn = new PrimitiveColumn<char>("Char", Enumerable.Range(0, length).Select(x => (char)(x + 65)));
+            df.InsertColumn(df.ColumnCount, charColumn);
+            charColumn[length / 2] = null;
             return df;
         }
 
         public static DataFrame MakeDataFrameWithNumericColumns(int length)
         {
             BaseColumn byteColumn = new PrimitiveColumn<byte>("Byte", Enumerable.Range(0, length).Select(x => (byte)x));
-            BaseColumn charColumn = new PrimitiveColumn<char>("Char", Enumerable.Range(0, length).Select(x => (char)(x + 65)));
             BaseColumn decimalColumn = new PrimitiveColumn<decimal>("Decimal", Enumerable.Range(0, length).Select(x => (decimal)x));
             BaseColumn doubleColumn = new PrimitiveColumn<double>("Double", Enumerable.Range(0, length).Select(x => (double)x));
             BaseColumn floatColumn = new PrimitiveColumn<float>("Float", Enumerable.Range(0, length).Select(x => (float)x));
@@ -65,7 +69,7 @@ namespace Microsoft.Data.Tests
             BaseColumn ulongColumn = new PrimitiveColumn<ulong>("Ulong", Enumerable.Range(0, length).Select(x => (ulong)x));
             BaseColumn ushortColumn = new PrimitiveColumn<ushort>("Ushort", Enumerable.Range(0, length).Select(x => (ushort)x));
 
-            DataFrame dataFrame = new DataFrame(new List<BaseColumn> { byteColumn, charColumn, decimalColumn, doubleColumn, floatColumn, intColumn, longColumn, sbyteColumn, shortColumn, uintColumn, ulongColumn, ushortColumn });
+            DataFrame dataFrame = new DataFrame(new List<BaseColumn> { byteColumn, decimalColumn, doubleColumn, floatColumn, intColumn, longColumn, sbyteColumn, shortColumn, uintColumn, ulongColumn, ushortColumn });
 
             for (int i = 0; i < dataFrame.ColumnCount; i++)
             {
@@ -919,7 +923,7 @@ namespace Microsoft.Data.Tests
             df = MakeDataFrame<float, bool>(10, false);
             GroupCountAndAssert(df);
 
-            df = MakeDataFrame<int , bool>(10, false);
+            df = MakeDataFrame<int, bool>(10, false);
             GroupCountAndAssert(df);
 
             df = MakeDataFrame<long, bool>(10, false);
@@ -943,15 +947,82 @@ namespace Microsoft.Data.Tests
         }
 
         [Fact]
-        public void TestClip()
+        public void TestColumnClip()
         {
             DataFrame df = MakeDataFrameWithNumericColumns(10);
             BaseColumn clipped = df["Int"].Clip(3, 7);
             Assert.Equal(3, clipped[0]);
             Assert.Equal(3, clipped[1]);
             Assert.Equal(3, clipped[2]);
-            Assert.Equal(3, clipped[8]);
-            Assert.Equal(3, clipped[9]);
+            Assert.Equal(7, clipped[8]);
+            Assert.Equal(7, clipped[9]);
+        }
+
+        [Fact]
+        public void TestDataFrameClip()
+        {
+            DataFrame df = MakeDataFrameWithNumericColumns(10);
+            DataFrame clipped = df.Clip(3, 7);
+            Assert.Equal(df.ColumnCount, clipped.ColumnCount);
+            for (int c = 0; c < df.ColumnCount; c++)
+            {
+                BaseColumn column = clipped.Column(c);
+                for (int i = 0; i < 3; i++)
+                {
+                    Assert.Equal("3", column[i].ToString());
+                }
+                for (int i = 8; i < 10; i++)
+                {
+                    Assert.Equal("7", column[i].ToString());
+                }
+            }
+        }
+
+        [Fact]
+        public void TestDataFrameFilter()
+        {
+            DataFrame df = MakeDataFrameWithAllColumnTypes(10);
+            DataFrame filtered = df[df["Bool"] == true];
+            List<int> verify = new List<int> { 0, 2, 4, 6, 8 };
+            Assert.Equal(5, filtered.RowCount);
+            for (int i = 0; i < filtered.ColumnCount; i++)
+            {
+                BaseColumn column = filtered.Column(i);
+                if (column.Name == "Char" || column.Name == "Bool")
+                    continue;
+                for (int j = 0; j < column.Length; j++)
+                {
+                    Assert.Equal(verify[j].ToString(), column[j].ToString());
+                }
+            }
+        }
+
+        [Fact]
+        public void TestPrefixAndSuffix()
+        {
+            DataFrame df = MakeDataFrameWithAllColumnTypes(10);
+            IList<string> columnNames = df.Columns;
+            df.AddPrefix("Prefix_");
+            IList<string> prefixNames = df.Columns;
+            for (int i = 0; i < prefixNames.Count; i++)
+            {
+                Assert.Equal("Prefix_" + columnNames[i], prefixNames[i]);
+            }
+            df.AddSuffix("_Suffix");
+            IList<string> suffixNames = df.Columns;
+            for (int i = 0; i < suffixNames.Count; i++)
+            {
+                Assert.Equal("Prefix_" + columnNames[i] + "_Suffix", suffixNames[i]);
+            }
+        }
+
+        [Fact]
+        public void TestSample()
+        {
+            DataFrame df = MakeDataFrameWithAllColumnTypes(10);
+            DataFrame sampled = df.Sample(3);
+            Assert.Equal(3, sampled.RowCount);
+            Assert.Equal(df.ColumnCount, sampled.ColumnCount);
         }
     }
 }

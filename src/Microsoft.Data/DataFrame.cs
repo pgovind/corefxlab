@@ -206,13 +206,13 @@ namespace Microsoft.Data
 
         public void RemoveColumn(string columnName) => _table.RemoveColumn(columnName);
 
+        #region Operators
         public object this[long rowIndex, int columnIndex]
         {
             get => _table.Column(columnIndex)[rowIndex];
             set => _table.Column(columnIndex)[rowIndex] = value;
         }
 
-        #region Operators
         public IList<object> this[long rowIndex]
         {
             get
@@ -221,6 +221,12 @@ namespace Microsoft.Data
             }
             //TODO?: set?
         }
+
+        /// <summary>
+        /// Return a new DataFrame with rows filtered by true values in boolColumn 
+        /// </summary>
+        /// <param name="boolColumn">A column of bools where true implies a selection</param>
+        public DataFrame this[BaseColumn boolColumn] => Clone(boolColumn);
 
         public BaseColumn this[string columnName]
         {
@@ -404,6 +410,62 @@ namespace Microsoft.Data
                 }
             }
             return ret;
+        }
+
+        /// <summary>
+        /// Clips values beyond the specified thresholds
+        /// </summary>
+        /// <typeparam name="U"></typeparam>
+        /// <param name="lower">Minimum value. All values below this threshold will be set to it</param>
+        /// <param name="upper">Maximum value. All values above this threshold will be set to it</param>
+        public DataFrame Clip<U>(U lower, U upper)
+        {
+            DataFrame ret = new DataFrame();
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                ret.InsertColumn(0, Column(i).Clip(lower, upper));
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// Adds a prefix to the column names
+        /// </summary>
+        public DataFrame AddPrefix(string prefix)
+        {
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                Column(i).Name = prefix + Column(i).Name;
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a suffix to the column names
+        /// </summary>
+        public DataFrame AddSuffix(string suffix)
+        {
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                Column(i).Name += suffix;
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// Returns a random sample of rows
+        /// </summary>
+        /// <param name="numberOfRows">Number of rows in the returned DataFrame</param>
+        public DataFrame Sample(int numberOfRows)
+        {
+            Random rand = new Random();
+            PrimitiveColumn<long> indices = new PrimitiveColumn<long>("Indices", numberOfRows);
+            for (long i = 0; i < numberOfRows; i++)
+            {
+                indices[i] = rand.Next((int)Math.Max(Int32.MaxValue, RowCount));
+            }
+
+            return Clone(indices);
         }
 
         public GroupBy GroupBy(string columnName)

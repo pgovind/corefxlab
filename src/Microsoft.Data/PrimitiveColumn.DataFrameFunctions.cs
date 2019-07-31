@@ -14,9 +14,10 @@ namespace Microsoft.Data
     {
         public override BaseColumn Clip<U>(U lower, U upper)
         {
-            if (typeof(T) == typeof(U))
+            object convertedLower = Convert.ChangeType(lower, typeof(T));
+            if (typeof(T) == typeof(U) || convertedLower != null)
             {
-                return _Clip((T)Convert.ChangeType(lower, typeof(T)), (T)Convert.ChangeType(upper, typeof(T)));
+                return _Clip((T)convertedLower, (T)Convert.ChangeType(upper, typeof(T)));
             }
             else
                 throw new ArgumentException(Strings.MismatchedValueType + typeof(T).ToString(), nameof(U));
@@ -28,7 +29,9 @@ namespace Microsoft.Data
             Comparer<T> comparer = Comparer<T>.Default;
             for (long i = 0; i < Length; i++)
             {
-                T value = (T)ret[i];
+                if (!ret.IsValid(i))
+                    continue;
+                T value = ret[i].Value;
 
                 if (comparer.Compare(value, lower) < 0)
                 {
