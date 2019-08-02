@@ -76,6 +76,8 @@ namespace Microsoft.Data
 
         public virtual BaseColumn Sort(bool ascending = true) => throw new NotImplementedException();
 
+        public virtual Dictionary<string, float> Description() => throw new NotImplementedException();
+
         public virtual Dictionary<TKey, ICollection<long>> GroupColumnValues<TKey>() => throw new NotImplementedException();
 
         public virtual GroupBy GroupBy(int columnIndex, DataFrame parent) => throw new NotImplementedException();

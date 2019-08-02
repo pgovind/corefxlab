@@ -127,6 +127,18 @@ namespace Microsoft.Data
             return $"{Name}: {_columnContainer.ToString()}";
         }
 
+         public override Dictionary<string, float> Description() 
+        { 
+            Dictionary<string, float> ret = new Dictionary<string, float>(); 
+            float max = (float)this.Max(); 
+            float min = (float)this.Min(); 
+            float mean = (float)((float)Sum() / Length); 
+            ret["Max"] = max; 
+            ret["Min"] = min; 
+            ret["Mean"] = mean; 
+            return ret; 
+        }
+
         public override BaseColumn Clone(BaseColumn mapIndices = null, bool invertMapIndices = false, long numberOfNullsToAppend = 0)
         {
             PrimitiveColumn<T> clone;

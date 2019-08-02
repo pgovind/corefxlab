@@ -154,6 +154,38 @@ namespace Microsoft.Data
             return new DataFrame(newColumns);
         }
 
+        public DataFrame Description()
+        {
+            var ret = new DataFrame();
+            StringColumn descColumn = new StringColumn("Description", 4);
+            descColumn.Append("Length");
+            descColumn.Append("Max");
+            descColumn.Append("Min");
+            descColumn.Append("Mean");
+            ret.InsertColumn(ret.ColumnCount, descColumn);
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                var column = Column(i);
+                if (column.DataType == typeof(string) || column.DataType == typeof(bool))
+                {
+                    continue;
+                }
+                Dictionary<string, float> columnDescription = column.Description();
+                PrimitiveColumn<float> newFloatColumn = new PrimitiveColumn<float>(column.Name, columnDescription.Count + 1);
+                ret.InsertColumn(ret.ColumnCount, newFloatColumn);
+                newFloatColumn[0] = (float)column.Length;
+                columnDescription.TryGetValue("Max", out float max);
+                columnDescription.TryGetValue("Min", out float min);
+                columnDescription.TryGetValue("Mean", out float mean);
+                newFloatColumn[1] = max;
+                newFloatColumn[2] = min;
+                newFloatColumn[3] = mean;
+
+
+            }
+            return ret;
+        }
+
         private void SetSuffixForDuplicatedColumnNames(DataFrame dataFrame, BaseColumn column, string leftSuffix, string rightSuffix)
         {
             int index = dataFrame._table.GetColumnIndex(column.Name);
