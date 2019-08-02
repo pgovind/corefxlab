@@ -130,9 +130,9 @@ namespace Microsoft.Data
          public override Dictionary<string, float> Description() 
         { 
             Dictionary<string, float> ret = new Dictionary<string, float>(); 
-            float max = (float)this.Max(); 
-            float min = (float)this.Min(); 
-            float mean = (float)((float)Sum() / Length); 
+            float max = (float)Convert.ChangeType(this.Max(), typeof(float));
+            float min = (float)Convert.ChangeType(this.Min(), typeof(float));
+            float mean = (float)((float)Convert.ChangeType(Sum(), typeof(float)) / Length); 
             ret["Max"] = max; 
             ret["Min"] = min; 
             ret["Mean"] = mean; 

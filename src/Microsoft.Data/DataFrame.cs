@@ -157,7 +157,7 @@ namespace Microsoft.Data
         public DataFrame Description()
         {
             var ret = new DataFrame();
-            StringColumn descColumn = new StringColumn("Description", 4);
+            StringColumn descColumn = new StringColumn("Description", 0);
             descColumn.Append("Length");
             descColumn.Append("Max");
             descColumn.Append("Min");
@@ -166,7 +166,7 @@ namespace Microsoft.Data
             for (int i = 0; i < ColumnCount; i++)
             {
                 var column = Column(i);
-                if (column.DataType == typeof(string) || column.DataType == typeof(bool))
+                if (column.DataType == typeof(string) || column.DataType == typeof(bool) || column.DataType == typeof(char))
                 {
                     continue;
                 }
