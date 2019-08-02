@@ -186,6 +186,22 @@ namespace Microsoft.Data
             return ret;
         }
 
+        /// <summary>
+        /// Return a new DataFrame with rows filtered by true values in boolColumn 
+        /// </summary>
+        /// <param name="boolColumn">A column of bools where true implies a selection</param>
+        public DataFrame this[BaseColumn boolColumn] => Clone(boolColumn);
+
+        private DataFrame Clone(BaseColumn mapIndices = null, bool invertMapIndices = false)
+        {
+            List<BaseColumn> newColumns = new List<BaseColumn>(ColumnCount);
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                newColumns.Add(Column(i).Clone(mapIndices, invertMapIndices));
+            }
+            return new DataFrame(newColumns);
+        }
+
         private void SetSuffixForDuplicatedColumnNames(DataFrame dataFrame, BaseColumn column, string leftSuffix, string rightSuffix)
         {
             int index = dataFrame._table.GetColumnIndex(column.Name);
