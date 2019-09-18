@@ -1015,6 +1015,18 @@ namespace Microsoft.Data.Tests
             Assert.Equal(2, columnMin.ColumnCount);
             Assert.Equal(0, columnMin["Int"][0]);
             Assert.Equal(0, columnMin["Int"][1]);
+
+            DataFrame countIntColumn = df.GroupBy("Bool").Count("Int");
+            Assert.Equal(2, countIntColumn.ColumnCount);
+            Assert.Equal(2, countIntColumn.RowCount);
+            Assert.Equal((long)5, countIntColumn["Int"][0]);
+            Assert.Equal((long)4, countIntColumn["Int"][1]);
+
+            DataFrame firstDecimalColumn = df.GroupBy("Bool").First("Decimal");
+            Assert.Equal(2, firstDecimalColumn.ColumnCount);
+            Assert.Equal(2, firstDecimalColumn.RowCount);
+            Assert.Equal((decimal)0, firstDecimalColumn["Decimal"][0]);
+            Assert.Equal((decimal)1, firstDecimalColumn["Decimal"][1]);
         }
 
         [Fact]
