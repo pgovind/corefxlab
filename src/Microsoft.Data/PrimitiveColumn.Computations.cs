@@ -15,9 +15,13 @@ namespace Microsoft.Data
     public partial class PrimitiveColumn<T> : BaseColumn
         where T : unmanaged
     {
-        public override BaseColumn Abs()
+        public override BaseColumn Abs(bool inPlace = false)
         {
-            PrimitiveColumn<T> ret = Clone();
+            PrimitiveColumn<T> ret;
+            if (inPlace)
+                ret = this;
+            else
+                ret = Clone();
             PrimitiveColumnComputation<T>.Instance.Abs(ret._columnContainer);
             return ret;
         }
@@ -31,51 +35,83 @@ namespace Microsoft.Data
             PrimitiveColumnComputation<T>.Instance.Any(_columnContainer, out bool ret);
             return ret;
         }
-        public override BaseColumn CumulativeMax()
+        public override BaseColumn CumulativeMax(bool inPlace = false)
         {
-            PrimitiveColumn<T> ret = Clone();
+            PrimitiveColumn<T> ret;
+            if (inPlace)
+                ret = this;
+            else
+                ret = Clone();
             PrimitiveColumnComputation<T>.Instance.CumulativeMax(ret._columnContainer);
             return ret;
         }
-        public override BaseColumn CumulativeMax(IEnumerable<long> rowIndices)
+        public override BaseColumn CumulativeMax(IEnumerable<long> rowIndices, bool inPlace = false)
         {
-            PrimitiveColumn<T> ret = Clone();
+            PrimitiveColumn<T> ret;
+            if (inPlace)
+                ret = this;
+            else
+                ret = Clone();
             PrimitiveColumnComputation<T>.Instance.CumulativeMax(ret._columnContainer, rowIndices);
             return ret;
         }
-        public override BaseColumn CumulativeMin()
+        public override BaseColumn CumulativeMin(bool inPlace = false)
         {
-            PrimitiveColumn<T> ret = Clone();
+            PrimitiveColumn<T> ret;
+            if (inPlace)
+                ret = this;
+            else
+                ret = Clone();
             PrimitiveColumnComputation<T>.Instance.CumulativeMin(ret._columnContainer);
             return ret;
         }
-        public override BaseColumn CumulativeMin(IEnumerable<long> rowIndices)
+        public override BaseColumn CumulativeMin(IEnumerable<long> rowIndices, bool inPlace = false)
         {
-            PrimitiveColumn<T> ret = Clone();
+            PrimitiveColumn<T> ret;
+            if (inPlace)
+                ret = this;
+            else
+                ret = Clone();
             PrimitiveColumnComputation<T>.Instance.CumulativeMin(ret._columnContainer, rowIndices);
             return ret;
         }
-        public override BaseColumn CumulativeProduct()
+        public override BaseColumn CumulativeProduct(bool inPlace = false)
         {
-            PrimitiveColumn<T> ret = Clone();
+            PrimitiveColumn<T> ret;
+            if (inPlace)
+                ret = this;
+            else
+                ret = Clone();
             PrimitiveColumnComputation<T>.Instance.CumulativeProduct(ret._columnContainer);
             return ret;
         }
-        public override BaseColumn CumulativeProduct(IEnumerable<long> rowIndices)
+        public override BaseColumn CumulativeProduct(IEnumerable<long> rowIndices, bool inPlace = false)
         {
-            PrimitiveColumn<T> ret = Clone();
+            PrimitiveColumn<T> ret;
+            if (inPlace)
+                ret = this;
+            else
+                ret = Clone();
             PrimitiveColumnComputation<T>.Instance.CumulativeProduct(ret._columnContainer, rowIndices);
             return ret;
         }
-        public override BaseColumn CumulativeSum()
+        public override BaseColumn CumulativeSum(bool inPlace = false)
         {
-            PrimitiveColumn<T> ret = Clone();
+            PrimitiveColumn<T> ret;
+            if (inPlace)
+                ret = this;
+            else
+                ret = Clone();
             PrimitiveColumnComputation<T>.Instance.CumulativeSum(ret._columnContainer);
             return ret;
         }
-        public override BaseColumn CumulativeSum(IEnumerable<long> rowIndices)
+        public override BaseColumn CumulativeSum(IEnumerable<long> rowIndices, bool inPlace = false)
         {
-            PrimitiveColumn<T> ret = Clone();
+            PrimitiveColumn<T> ret;
+            if (inPlace)
+                ret = this;
+            else
+                ret = Clone();
             PrimitiveColumnComputation<T>.Instance.CumulativeSum(ret._columnContainer, rowIndices);
             return ret;
         }
@@ -119,9 +155,13 @@ namespace Microsoft.Data
             PrimitiveColumnComputation<T>.Instance.Sum(_columnContainer, rowIndices, out T ret);
             return ret;
         }
-        public override BaseColumn Round()
+        public override BaseColumn Round(bool inPlace = false)
         {
-            PrimitiveColumn<T> ret = Clone();
+            PrimitiveColumn<T> ret;
+            if (inPlace)
+                ret = this;
+            else
+                ret = Clone();
             PrimitiveColumnComputation<T>.Instance.Round(ret._columnContainer);
             return ret;
         }
