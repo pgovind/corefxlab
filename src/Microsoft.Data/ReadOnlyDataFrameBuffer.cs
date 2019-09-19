@@ -45,12 +45,6 @@ namespace Microsoft.Data
             get => (MemoryMarshal.Cast<byte, T>(ReadOnlyBuffer.Span)).Slice(0, Length);
         }
 
-        public ReadOnlySpan<T> RawReadOnlySpan
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => MemoryMarshal.Cast<byte, T>(ReadOnlyBuffer.Span);
-        }
-
         public int Length { get; internal set; }
 
         public ReadOnlyDataFrameBuffer(int numberOfValues = 8)
@@ -64,6 +58,8 @@ namespace Microsoft.Data
 
         public ReadOnlyDataFrameBuffer(ReadOnlyMemory<byte> buffer, int length)
         {
+            if (buffer.IsEmpty)
+                throw new ArgumentNullException(nameof(buffer));
             _readOnlyBuffer = buffer;
             Length = length;
         }
@@ -74,7 +70,7 @@ namespace Microsoft.Data
             {
                 if (index > Length)
                     throw new ArgumentOutOfRangeException(nameof(index));
-                return RawReadOnlySpan[index];
+                return ReadOnlySpan[index];
             }
             set => throw new NotSupportedException();
         }

@@ -79,7 +79,7 @@ namespace Microsoft.Data
             {
                 if (index > Length)
                     throw new ArgumentOutOfRangeException(nameof(index));
-                RawSpan[index] = value;
+                Span[index] = value;
             }
         }
 
