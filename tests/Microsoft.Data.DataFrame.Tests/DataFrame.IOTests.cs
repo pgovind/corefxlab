@@ -3,7 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Xunit;
@@ -57,6 +59,36 @@ CMT,1,1,181,0.6,CSH,4.5";
             Assert.Equal(3, reducedRows.RowCount);
             Assert.Equal(7, reducedRows.ColumnCount);
             Assert.Equal("CMT", reducedRows["Column0"][2]);
+        }
+
+        [Fact]
+        public void Debug()
+        {
+            string path = @"C:\Users\prgovi\Desktop\Work\dataset.csv";
+            DataFrame dataFrame = DataFrame.ReadCsv(path);
+
+            DataFrame dfTest;
+            DataFrame dfTrain = SplitTrainTest(dataFrame, 0.8f, out dfTest);
+            dfTest = SplitTrainTest(dfTest, 0.5f, out DataFrame dfValidate);
+            var list = new List<string>();
+            for (int i = 0; i < dfTest.RowCount; i++)
+            {
+                list.Add(string.Join('\t', dfTest[i]));
+            }
+
+            DataFrame dataFrame2 = dfTrain.Sort("Timestamp");
+            DataFrame counts = dataFrame2.GroupBy("User").Count();
+            Console.WriteLine(counts.ToString());
+            
+        }
+
+        public static DataFrame SplitTrainTest(DataFrame input, float testRatio, out DataFrame Test)
+        {
+            IEnumerable<int> randomIndices = Enumerable.Range(0, (int)input.RowCount);
+            IEnumerable<int> testIndices = randomIndices.Take((int)(input.RowCount * testRatio));
+            IEnumerable<int> trainIndices = randomIndices.TakeLast((int)(input.RowCount * (1 - testRatio)));
+            Test = input[testIndices];
+            return input[trainIndices];
         }
     }
 }
