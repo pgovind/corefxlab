@@ -22,7 +22,7 @@ namespace Microsoft.Data {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Strings {
+    internal class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Microsoft.Data {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Data.DataFrame.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace Microsoft.Data {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to Cannot resize down.
         /// </summary>
-        public static string CannotResizeDown {
+        internal static string CannotResizeDown {
             get {
                 return ResourceManager.GetString("CannotResizeDown", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to Index cannot be greater than the Column&apos;s Length.
         /// </summary>
-        public static string ColumnIndexOutOfRange {
+        internal static string ColumnIndexOutOfRange {
             get {
                 return ResourceManager.GetString("ColumnIndexOutOfRange", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to DataFrame already contains a column called {0}.
         /// </summary>
-        public static string DuplicateColumnName {
+        internal static string DuplicateColumnName {
             get {
                 return ResourceManager.GetString("DuplicateColumnName", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to Empty file.
         /// </summary>
-        public static string EmptyFile {
+        internal static string EmptyFile {
             get {
                 return ResourceManager.GetString("EmptyFile", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to Column is immutable.
         /// </summary>
-        public static string ImmutableColumn {
+        internal static string ImmutableColumn {
             get {
                 return ResourceManager.GetString("ImmutableColumn", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to Column does not exist.
         /// </summary>
-        public static string InvalidColumnName {
+        internal static string InvalidColumnName {
             get {
                 return ResourceManager.GetString("InvalidColumnName", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to Line {0} has less columns than expected.
         /// </summary>
-        public static string LessColumnsThatExpected {
+        internal static string LessColumnsThatExpected {
             get {
                 return ResourceManager.GetString("LessColumnsThatExpected", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to MapIndices exceeds column length.
         /// </summary>
-        public static string MapIndicesExceedsColumnLenth {
+        internal static string MapIndicesExceedsColumnLenth {
             get {
                 return ResourceManager.GetString("MapIndicesExceedsColumnLenth", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to Column lengths are mismatched.
         /// </summary>
-        public static string MismatchedColumnLengths {
+        internal static string MismatchedColumnLengths {
             get {
                 return ResourceManager.GetString("MismatchedColumnLengths", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to rowCount differs from Column length for Column .
         /// </summary>
-        public static string MismatchedRowCount {
+        internal static string MismatchedRowCount {
             get {
                 return ResourceManager.GetString("MismatchedRowCount", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to Expected value to be of type .
         /// </summary>
-        public static string MismatchedValueType {
+        internal static string MismatchedValueType {
             get {
                 return ResourceManager.GetString("MismatchedValueType", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to Expected value to be of type {0}, {1} or {2}.
         /// </summary>
-        public static string MultipleMismatchedValueType {
+        internal static string MultipleMismatchedValueType {
             get {
                 return ResourceManager.GetString("MultipleMismatchedValueType", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to numeric column.
         /// </summary>
-        public static string NumericColumnType {
+        internal static string NumericColumnType {
             get {
                 return ResourceManager.GetString("NumericColumnType", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Microsoft.Data {
         /// <summary>
         ///   Looks up a localized string similar to Cannot span multiple buffers.
         /// </summary>
-        public static string SpansMultipleBuffers {
+        internal static string SpansMultipleBuffers {
             get {
                 return ResourceManager.GetString("SpansMultipleBuffers", resourceCulture);
             }

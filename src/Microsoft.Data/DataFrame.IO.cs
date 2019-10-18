@@ -90,13 +90,13 @@ namespace Microsoft.Data
         /// <param name="guessRows">number of rows used to guess types</param>
         /// <param name="addIndexColumn">add one column with the row index</param>
         /// <returns>DataFrame</returns>
-        public static DataFrame ReadCsv(string filename,
+        public static DataFrame LoadCsv(string filename,
                                 char separator = ',', bool header = true,
                                 string[] columnNames = null, Type[] dataTypes = null,
                                 int numRows = -1, int guessRows = 10,
                                 bool addIndexColumn = false)
         {
-            return ReadStream(() => new StreamReader(filename),
+            return LoadStream(() => new StreamReader(filename),
                               separator: separator, header: header, columnNames: columnNames, dataTypes: dataTypes, numberOfRowsToRead: numRows,
                               guessRows: guessRows, addIndexColumn: addIndexColumn);
         }
@@ -114,7 +114,7 @@ namespace Microsoft.Data
         /// <param name="guessRows">number of rows used to guess types</param>
         /// <param name="addIndexColumn">add one column with the row index</param>
         /// <returns>DataFrame</returns>
-        public static DataFrame ReadStream(Func<StreamReader> createStream,
+        public static DataFrame LoadStream(Func<StreamReader> createStream,
                                 char separator = ',', bool header = true,
                                 string[] columnNames = null, Type[] dataTypes = null,
                                 long numberOfRowsToRead = -1, int guessRows = 10, bool addIndexColumn = false)

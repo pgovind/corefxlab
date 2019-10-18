@@ -27,13 +27,13 @@ namespace Microsoft.Data
             _columns = new List<DataFrameColumn>();
         }
 
-        public DataFrameTable(IList<DataFrameColumn> columns)
+        public DataFrameTable(IEnumerable<DataFrameColumn> columns)
         {
             columns = columns ?? throw new ArgumentNullException(nameof(columns));
             _columns = new List<DataFrameColumn>();
-            for (int i = 0; i < columns.Count; i++)
+            foreach (DataFrameColumn column in columns)
             {
-                InsertColumn(i, columns[i]);
+                InsertColumn(ColumnCount, column);
             }
         }
 

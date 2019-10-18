@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace Microsoft.Data
@@ -134,24 +135,19 @@ namespace Microsoft.Data
             }
         }
 
-        public IList<IList<object>> Head(int numberOfRows)
+        public DataFrame Head(int numberOfRows)
         {
-            var ret = new List<IList<object>>();
-            for (int i = 0; i < numberOfRows; i++)
-            {
-                ret.Add(this[i]);
-            }
-            return ret;
+            return Clone(new PrimitiveDataFrameColumn<int>("Filter", Enumerable.Range(0, numberOfRows)));
         }
 
-        public IList<IList<object>> Tail(int numberOfRows)
+        public DataFrame Tail(int numberOfRows)
         {
-            var ret = new List<IList<object>>();
+            PrimitiveDataFrameColumn<long> filter = new PrimitiveDataFrameColumn<long>("Filter", numberOfRows);
             for (long i = RowCount - numberOfRows; i < RowCount; i++)
             {
-                ret.Add(this[i]);
+                filter[i - RowCount - numberOfRows] = i;
             }
-            return ret;
+            return Clone(filter);
         }
         // TODO: Add strongly typed versions of these APIs
         #endregion

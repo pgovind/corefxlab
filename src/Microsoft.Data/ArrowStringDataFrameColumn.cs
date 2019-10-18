@@ -247,9 +247,9 @@ namespace Microsoft.Data
             }
         }
 
-        protected override object GetValue(long startIndex, int length)
+        protected override List<object> GetValues(long startIndex, int length)
         {
-            var ret = new List<string>();
+            var ret = new List<object>();
             while (ret.Count < length)
             {
                 ret.Add(GetValueImplementation(startIndex++));

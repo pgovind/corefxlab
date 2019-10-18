@@ -62,13 +62,13 @@ namespace Microsoft.Data
         }
 
         protected abstract object GetValue(long rowIndex);
-        protected abstract object GetValue(long startIndex, int length);
+        protected abstract List<object> GetValues(long startIndex, int length);
 
         protected abstract void SetValue(long rowIndex, object value);
 
-        public object this[long startIndex, int length]
+        public List<object> this[long startIndex, int length]
         {
-            get => GetValue(startIndex, length);
+            get => GetValues(startIndex, length);
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumeratorCore();
@@ -87,9 +87,15 @@ namespace Microsoft.Data
         /// <param name="mapIndices"></param>
         /// <param name="invertMapIndices"></param>
         /// <returns></returns>
-        public virtual DataFrameColumn Clone(DataFrameColumn mapIndices = null, bool invertMapIndices = false, long numberOfNullsToAppend = 0) => throw new NotImplementedException();
+        public virtual DataFrameColumn Clone(DataFrameColumn mapIndices = null, bool invertMapIndices = false, long numberOfNullsToAppend = 0) => CloneImplementation(mapIndices, invertMapIndices, numberOfNullsToAppend);
 
-        public virtual DataFrameColumn Sort(bool ascending = true) => throw new NotImplementedException();
+        protected virtual DataFrameColumn CloneImplementation(DataFrameColumn mapIndices, bool invertMapIndices, long numberOfNullsToAppend) => throw new NotImplementedException();
+
+        public virtual DataFrameColumn Sort(bool ascending = true)
+        {
+            PrimitiveDataFrameColumn<long> sortIndices = GetAscendingSortIndices();
+            return Clone(sortIndices, !ascending, NullCount);
+        }
 
         public virtual Dictionary<TKey, ICollection<long>> GroupColumnValues<TKey>() => throw new NotImplementedException();
 
@@ -173,7 +179,7 @@ namespace Microsoft.Data
         /// </summary>
         public virtual DataFrame Description() => throw new NotImplementedException();
 
-        internal virtual DataFrameColumn GetAscendingSortIndices() => throw new NotImplementedException();
+        public virtual PrimitiveDataFrameColumn<long> GetAscendingSortIndices() => throw new NotImplementedException();
 
         internal delegate long GetBufferSortIndex(int bufferIndex, int sortIndex);
         internal delegate ValueTuple<T, int> GetValueAndBufferSortIndexAtBuffer<T>(int bufferIndex, int valueIndex);

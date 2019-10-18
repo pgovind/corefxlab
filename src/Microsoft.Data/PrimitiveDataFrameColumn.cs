@@ -170,13 +170,19 @@ namespace Microsoft.Data
             }
         }
 
-        protected override object GetValue(long startIndex, int length)
+        protected override List<object> GetValues(long startIndex, int length)
         {
             if (startIndex > Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(startIndex));
             }
-            return _columnContainer[startIndex, length];
+            var ret = new List<object>(length);
+            long endIndex = Math.Min(Length, startIndex + length);
+            for (long i = startIndex; i < endIndex; i++)
+            {
+                ret.Add(this[i]);
+            }
+            return ret;
         }
 
         internal T? GetTypedValue(long rowIndex) => _columnContainer[rowIndex];
@@ -216,7 +222,7 @@ namespace Microsoft.Data
             // Not the most efficient implementation. Using a selection algorithm here would be O(n) instead of O(nLogn)
             if (Length == 0)
                 return 0;
-            PrimitiveDataFrameColumn<long> sortIndices = GetAscendingSortIndices() as PrimitiveDataFrameColumn<long>;
+            PrimitiveDataFrameColumn<long> sortIndices = GetAscendingSortIndices();
             long middle = sortIndices.Length / 2;
             double middleValue = (double)Convert.ChangeType(this[sortIndices[middle].Value].Value, typeof(double));
             if (Length % 2 == 0)
@@ -312,7 +318,7 @@ namespace Microsoft.Data
             return $"{Name}: {_columnContainer.ToString()}";
         }
 
-        public override DataFrameColumn Clone(DataFrameColumn mapIndices = null, bool invertMapIndices = false, long numberOfNullsToAppend = 0)
+        public new PrimitiveDataFrameColumn<T> Clone(DataFrameColumn mapIndices, bool invertMapIndices, long numberOfNullsToAppend)
         {
             PrimitiveDataFrameColumn<T> clone;
             if (!(mapIndices is null))
@@ -334,6 +340,11 @@ namespace Microsoft.Data
             Debug.Assert(!ReferenceEquals(clone, null));
             clone.AppendMany(null, numberOfNullsToAppend);
             return clone;
+        }
+
+        protected override DataFrameColumn CloneImplementation(DataFrameColumn mapIndices, bool invertMapIndices, long numberOfNullsToAppend)
+        {
+            return Clone(mapIndices, invertMapIndices, numberOfNullsToAppend);
         }
 
         private PrimitiveDataFrameColumn<T> Clone(PrimitiveDataFrameColumn<bool> boolColumn)
