@@ -126,12 +126,13 @@ CMT,1,1,181,0.6,CSH,4.5";
         }
 
         [Fact]
-        private static DataFrame CalculateNumberOfTrips(
+        private static DataFrame CalculateTotalNumberOfTripsEachDayOfTheWeek(
             DataFrame inputDataFrame,
-            string dateField)
+            string dateColumnName)
         {
             /*
-             * Data looks like the following
+             * Step 0:
+             * Initial data looks like the following
              * city_id, date, active_vehicles, trips
                 02512, 1/1/2015, 190, 1132
                 02765, 1/1/2015, 225, 1765
@@ -156,25 +157,48 @@ CMT,1,1,181,0.6,CSH,4.5";
                 return (int)Convert.ToDateTime(date).DayOfWeek;
             }
 
+            /*
+             * Step 1: Initial Spark processing leaves us with:
+             * city_id, date, active_vehicles, trips
+                02512, 1/1/2015, 190, 1132
+                02512, 1/2/2015, 175, 875
+                02512, 1/3/2015, 173, 1088
+                .
+                02765, 1/1/2015, 225, 1765
+                02765, 1/2/2015, 196, 1001
+                02765, 1/3/2015, 201, 1526 
+                .
+                02764, 1/1/2015, 3427, 29421
+                02764, 1/2/2015, 3147, 19974
+                .
+                02682, 1/1/2015, 945, 7679
+                02682, 1/2/2015, 890, 5506
+                .
+                02617, 1/1/2015, 1228, 9537
+                02617, 1/2/2015, 1137, 7065
+                .
+                02598, 1/1/2015, 870, 6903
+                02598, 1/2/2015, 785, 4768
+                .
+                .
+                .
+             */
+
+            // Task: Find the total number of trips each day of the week
             PrimitiveDataFrameColumn<int> dayNumberColumn = new PrimitiveDataFrameColumn<int>("DayNumber", inputDataFrame.RowCount);
             for (long i = 0; i < inputDataFrame.RowCount; i++)
             {
-                dayNumberColumn[i] = GetDayNumber((string)inputDataFrame[dateField][i] ?? "-1/-1/-1");
+                dayNumberColumn[i] = GetDayNumber((string)inputDataFrame[dateColumnName][i] ?? "-1/-1/-1");
             }
-            inputDataFrame["DayNumber"] = dayNumberColumn;
+            inputDataFrame.Columns.Add(dayNumberColumn);
 
-            // Doesn't make sense to Sum() the "date" column
+            // Doesn't make sense to Sum() the "date" column, so remove it
             inputDataFrame.Columns.Remove("date");
 
             // GroupBy the DayNumber and Sum
             DataFrame groupedSum = inputDataFrame.GroupBy("DayNumber").Sum();
 
-            DataFrame ret = new DataFrame();
-            ret["day_of_the_week"] = groupedSum["DayNumber"];
-            ret["active_vehicles"] = groupedSum["active_vehicles"];
-            ret["number_of_trips"] = groupedSum["trips"];
-
-            return ret;
+            return groupedSum;
         }
     }
 }
