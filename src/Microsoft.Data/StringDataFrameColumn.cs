@@ -467,5 +467,22 @@ namespace Microsoft.Data
 
         private ValueGetter<ReadOnlyMemory<char>> CreateValueGetterDelegate(DataViewRowCursor cursor) =>
             (ref ReadOnlyMemory<char> value) => value = this[cursor.Position].AsMemory();
+
+        public void ApplyElementwise(Func<string, long, string> func)
+        {
+            for (int b = 0; b < _stringBuffers.Count; b++)
+            {
+                List<string> buffer = _stringBuffers[b];
+                long prevLength = checked(_stringBuffers[0].Count * b);
+                for (int i = 0; i < buffer.Count; i++)
+                {
+                    long curIndex = i + prevLength;
+                    string current = buffer[i];
+                    bool isValid = current == null;
+                    string value = func(isValid ? current : null, curIndex);
+                    buffer[i] = value;
+                }
+            }
+        }
     }
 }
